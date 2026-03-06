@@ -1,6 +1,5 @@
 'use client';
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useRef, useState } from 'react';
 import { Sheet, SheetRef, SheetEdge } from 'react-edge-sheet';
 
@@ -9,7 +8,7 @@ interface DocDemoProps {
   label?: string;
   sheetStyle?: React.CSSProperties;
   backdropStyle?: React.CSSProperties;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 /** Float the sheet panel away from the screen edge with full rounded corners */
