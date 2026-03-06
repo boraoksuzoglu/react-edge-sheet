@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CopyButton } from '@/components/ui/CopyButton';
 import { Badge } from '@/components/ui/Badge';
 
@@ -41,7 +42,7 @@ export function Hero() {
 
         {/* CTA buttons */}
         <div className="flex flex-wrap justify-center gap-3 mb-16 animate-[slide-up_0.6s_cubic-bezier(0.4,0,0.2,1)_0.35s_both]">
-          <a
+          <Link
             href="/docs/getting-started"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-white transition-all duration-200 hover:opacity-90 hover:scale-105"
             style={{ backgroundImage: 'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))' }}
@@ -50,7 +51,7 @@ export function Hero() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
           <a
             href="https://github.com/boraoksuzoglu/react-edge-sheet"
             target="_blank"

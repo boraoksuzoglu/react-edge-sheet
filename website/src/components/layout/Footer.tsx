@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export function Footer() {
   return (
     <footer className="border-t border-[color-mix(in_oklch,var(--glass-border)_30%,transparent)] mt-24">
@@ -22,9 +24,9 @@ export function Footer() {
           >
             npm
           </a>
-          <a href="/docs/getting-started" className="hover:text-[var(--foreground)] transition-colors">
+          <Link href="/docs/getting-started" className="hover:text-[var(--foreground)] transition-colors">
             Docs
-          </a>
+          </Link>
         </div>
       </div>
     </footer>

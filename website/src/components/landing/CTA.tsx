@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { CopyButton } from '@/components/ui/CopyButton';
 
 export function CTA() {
@@ -21,13 +22,13 @@ export function CTA() {
           </div>
 
           <div className="flex flex-wrap justify-center gap-3">
-            <a
+            <Link
               href="/docs/getting-started"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-white transition-all duration-200 hover:opacity-90"
               style={{ backgroundImage: 'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))' }}
             >
               Read the Docs
-            </a>
+            </Link>
             <a
               href="https://github.com/boraoksuzoglu/react-edge-sheet"
               target="_blank"
