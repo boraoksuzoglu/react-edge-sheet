@@ -1,0 +1,13 @@
+[
+  {
+    "path": "dist/index.js",
+    "limit": "12 kB",
+    "import": "{ Sheet }",
+    "name": "Sheet (ESM, tree-shaken)"
+  },
+  {
+    "path": "dist/index.js",
+    "limit": "14 kB",
+    "name": "Full bundle (ESM)"
+  }
+]

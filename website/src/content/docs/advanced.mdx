@@ -1,0 +1,276 @@
+---
+title: Advanced
+description: Animation internals, SSR, accessibility, and custom styling.
+---
+
+# Advanced
+
+## Animation Internals
+
+`react-edge-sheet` uses CSS `transform` transitions for animations — no JavaScript animation libraries, no `requestAnimationFrame` loops. For animation presets and asymmetric enter/exit transitions, see the [Animations guide](/docs/animation).
+
+### How the enter animation works
+
+1. Sheet mounts with the panel off-screen (e.g. `translateY(150%)` for bottom)
+2. A `requestAnimationFrame` call triggers `setIsEntered(true)` — giving the browser one paint to register the off-screen position
+3. CSS transition runs: `transform` changes to `translateY(0)` over `300ms`
+
+The 150% offset (not 100%) prevents a visible pixel flash on some devices when the panel first appears.
+
+### Exit animation
+
+1. `close()` sets `isExiting = true`
+2. Transform transitions back to the off-screen value
+3. The CSS `transitionend` event fires (guarded to only run on `transform` on the panel element)
+4. Internal state resets — `isExiting` and `isOpen` both become false — unmounting the panel
+
+---
+
+## Size Animation
+
+When `animateSize={true}` (default), the panel smoothly resizes when its content changes height or width. This uses a `ResizeObserver` on the inner content div.
+
+```tsx
+// Disable size animation for static content:
+<Sheet ref={ref} edge="bottom" animateSize={false}>
+  ...
+</Sheet>
+```
+
+The animated size transition uses:
+- `height` (vertical sides: top/bottom)
+- `width` (horizontal sides: left/right)
+
+with a `0.25s ease` transition.
+
+---
+
+## Custom Styling
+
+### Style the sheet panel
+
+Use the `style` prop for inline styles on the panel element:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  style={{
+    backgroundColor: 'white',
+    borderRadius: '1.5rem 1.5rem 0 0',
+    padding: '2rem',
+    boxShadow: '0 -4px 40px rgba(0,0,0,0.12)',
+  }}
+>
+  ...
+</Sheet>
+```
+
+### Style with className
+
+Use the `className` prop with your CSS framework:
+
+```tsx
+// Tailwind CSS
+<Sheet
+  ref={ref}
+  edge="right"
+  className="bg-white dark:bg-gray-900 p-6 rounded-l-2xl shadow-2xl"
+>
+  ...
+</Sheet>
+```
+
+### Position alignment
+
+The `align` prop positions the sheet along the edge:
+
+- **Top/bottom**: `start` (left), `center` (default), `end` (right)
+- **Left/right**: `start` (top), `center` (default), `end` (bottom)
+
+```tsx
+// Notifications dropdown in top-right corner
+<Sheet ref={ref} edge="top" align="end" maxWidth="400px">
+  ...
+</Sheet>
+
+// Sidebar anchored to bottom
+<Sheet ref={ref} edge="right" align="end" maxWidth="320px">
+  ...
+</Sheet>
+```
+
+### Limit panel size
+
+`maxSize` sets the `max-height` (for top/bottom) or `max-width` (for left/right):
+
+```tsx
+<Sheet ref={ref} edge="bottom" maxSize="60vh">
+  ...
+</Sheet>
+
+<Sheet ref={ref} edge="right" maxSize="400px">
+  ...
+</Sheet>
+```
+
+### Backdrop customization
+
+**Backdrop blur**: Use `backdropStyle` to override the default `blur(20px)`:
+
+```tsx
+<Sheet ref={ref} backdropStyle={{ backdropFilter: 'blur(8px)' }}>...</Sheet>   // lighter
+<Sheet ref={ref} backdropStyle={{ backdropFilter: 'none' }}>...</Sheet>        // no blur
+<Sheet ref={ref} backdropStyle={{ backdropFilter: 'blur(40px)' }}>...</Sheet>  // heavy
+```
+
+**No backdrop** (sheet-only modal):
+
+```tsx
+<Sheet ref={ref} backdrop={false}>...</Sheet>
+```
+
+**Custom backdrop** (like gorhom/bottom-sheet): Use `backdropComponent` to render your own overlay:
+
+```tsx
+<Sheet
+  ref={ref}
+  backdropComponent={(props) => (
+    <div
+      style={{
+        position: 'absolute', inset: 0,
+        opacity: props.isExiting ? 0 : props.isEntered ? 1 : 0,
+        background: 'rgba(0,0,0,0.5)',
+        transition: 'opacity 0.3s',
+      }}
+      onClick={props.closeOnBackdropClick ? props.close : undefined}
+    />
+  )}
+>
+  ...
+</Sheet>
+```
+
+### Min / max size
+
+Use `minSize`, `minHeight`, `minWidth` for minimum dimensions (mirrors the max API):
+
+```tsx
+<Sheet ref={ref} edge="bottom" minHeight="200px" maxHeight="80vh">...</Sheet>
+<Sheet ref={ref} edge="right" minWidth="280px" maxWidth="400px">...</Sheet>
+```
+
+### Transition overrides
+
+Override the built-in transitions via props:
+
+```tsx
+<Sheet
+  ref={ref}
+  transition="transform 0.25s ease-out"
+  sizeTransition="0.2s ease"
+  backdropTransition="opacity 0.25s ease-out"
+>
+  ...
+</Sheet>
+```
+
+---
+
+## Accessibility
+
+The sheet panel is rendered with `role="dialog"` and `aria-modal="true"`. Escape key always closes the sheet, and a focus trap keeps keyboard navigation inside the panel while it is open.
+
+For full details — ARIA props, focus restoration, screen reader guidance — see the [Keyboard & Focus guide](/docs/keyboard).
+
+Quick example:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  aria-labelledby="sheet-title"
+  aria-describedby="sheet-desc"
+>
+  <div>
+    <h2 id="sheet-title">Sheet Title</h2>
+    <p id="sheet-desc">Description of the sheet content.</p>
+  </div>
+</Sheet>
+```
+
+---
+
+## SSR / Next.js
+
+`Sheet` uses `createPortal` and accesses `document`, which makes it incompatible with SSR. Two patterns work:
+
+### Pattern 1: Wrap the component using Sheet
+
+```tsx
+// MyDrawer.tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export default function MyDrawer() {
+  const ref = useRef<SheetRef>(null);
+  // ...
+}
+
+// page.tsx
+import dynamic from 'next/dynamic';
+
+const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
+```
+
+### Pattern 2: Dynamic import of Sheet itself
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const Sheet = dynamic(
+  () => import('react-edge-sheet').then((m) => ({ default: m.Sheet })),
+  { ssr: false }
+);
+```
+
+### Remix
+
+In Remix, use `ClientOnly` from `remix-utils`:
+
+```tsx
+import { ClientOnly } from 'remix-utils/client-only';
+
+<ClientOnly>
+  {() => <MySheetComponent />}
+</ClientOnly>
+```
+
+---
+
+## onOpen / onClose Timing
+
+`onOpen` fires **after** the enter animation completes. `onClose` fires **after** the exit animation completes — this is when the component unmounts.
+
+If you need to react to the open/close *intent* (before animation), use `onOpenChange`:
+
+```tsx
+<Sheet
+  open={open}
+  onOpenChange={(nextOpen) => {
+    // fires immediately when user closes (backdrop click / Escape)
+    if (!nextOpen) analytics.track('sheet_dismissed');
+    setOpen(nextOpen);
+  }}
+  onOpen={() => {
+    // fires after enter animation
+    fetchData();
+  }}
+  onClose={() => {
+    // fires after exit animation — component is about to unmount
+    cleanup();
+  }}
+>
+  ...
+</Sheet>
+```

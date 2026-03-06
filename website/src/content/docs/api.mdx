@@ -1,0 +1,310 @@
+---
+title: API Reference
+description: Complete props, ref methods, and TypeScript types for react-edge-sheet.
+---
+
+# API Reference
+
+## `<Sheet />` Props
+
+<PropsTable />
+
+### `edge`
+
+Which screen edge the sheet slides from.
+
+```ts
+type SheetEdge = 'top' | 'bottom' | 'left' | 'right';
+```
+
+Default: `'bottom'`
+
+### `align`
+
+Position alignment when the sheet is docked to an edge:
+
+- **Top/bottom edges**: `align` controls horizontal position (`start` = left, `center` = middle, `end` = right)
+- **Left/right edges**: `align` controls vertical position (`start` = top, `center` = middle, `end` = bottom)
+
+Common use case: `edge="top"` + `align="end"` for a notifications dropdown in the top-right corner.
+
+```ts
+type Align = 'start' | 'center' | 'end';
+```
+
+Default: `'center'`
+
+### `open` / `onOpenChange`
+
+Controlled mode. Pass `open` to take control of visibility state. `onOpenChange` is called when the sheet should open or close (backdrop click, Escape key).
+
+```tsx
+<Sheet open={isOpen} onOpenChange={setIsOpen} edge="right">
+  ...
+</Sheet>
+```
+
+### `portal`
+
+Where to render the sheet via `createPortal`.
+
+- `undefined` (default) — renders into `document.body`
+- `HTMLElement` — renders into a specific element
+- `null` — renders inline (no portal)
+
+### `onOpen` / `onClose`
+
+Callbacks fired **after the animation completes**, not when the state changes.
+
+```tsx
+<Sheet onOpen={() => console.log('fully open')} onClose={() => console.log('fully closed')}>
+  ...
+</Sheet>
+```
+
+---
+
+## `SheetRef` Methods
+
+Access these via `ref.current` when using the imperative API.
+
+| Method | Signature | Description |
+|---|---|---|
+| `open` | `() => void` | Opens the sheet |
+| `close` | `() => void` | Closes the sheet with exit animation |
+| `toggle` | `() => void` | Toggles open/closed |
+| `isOpen` | `boolean` | Current open state |
+
+```tsx
+const ref = useRef<SheetRef>(null);
+
+// Later:
+ref.current?.open();
+ref.current?.close();
+ref.current?.toggle();
+console.log(ref.current?.isOpen);
+```
+
+---
+
+## `SheetEdge` Type
+
+```ts
+type SheetEdge = 'top' | 'bottom' | 'left' | 'right';
+```
+
+---
+
+### `backdrop` / `backdropComponent`
+
+Control backdrop visibility and customization (similar to gorhom/bottom-sheet):
+
+- **`backdrop={true}`** (default): Shows the built-in backdrop.
+- **`backdrop={false}`**: No backdrop — sheet-only modal.
+- **`backdropComponent`**: Custom backdrop. Receives `{ isExiting, isEntered, close, closeOnBackdropClick, style?, className? }`.
+
+```tsx
+// No backdrop
+<Sheet backdrop={false}>...</Sheet>
+
+// Custom backdrop
+<Sheet
+  backdropComponent={(props) => (
+    <div
+      style={{
+        position: 'absolute', inset: 0,
+        opacity: props.isExiting ? 0 : props.isEntered ? 1 : 0,
+        background: 'rgba(0,0,0,0.5)',
+        transition: 'opacity 0.3s',
+      }}
+      onClick={props.closeOnBackdropClick ? props.close : undefined}
+    />
+  )}
+>
+  ...
+</Sheet>
+```
+
+---
+
+## Exported Components & Hooks
+
+### `SheetBackdrop`
+
+Default backdrop component (opacity-animated, `blur(20px)` by default). Use with `backdropComponent` to customize:
+
+```tsx
+import { Sheet, SheetBackdrop } from 'react-edge-sheet';
+
+<Sheet
+  backdropComponent={(props) => (
+    <SheetBackdrop
+      closeOnBackdropClick={props.closeOnBackdropClick}
+      backdropStyle={props.style}
+      backdropClassName={props.className}
+    />
+  )}
+>
+  ...
+</Sheet>
+```
+
+### `useSheet`
+
+Headless hook for custom sheet UIs:
+
+```tsx
+import { useSheet } from 'react-edge-sheet';
+
+const { isOpen, isExiting, isEntered, openFn, closeFn, toggle } = useSheet({
+  open: controlledOpen,
+  onOpenChange: setOpen,
+  onOpen: () => console.log('opened'),
+  onClose: () => console.log('closed'),
+});
+```
+
+### `useSheetContext`
+
+Access sheet state inside any component rendered as a child of `Sheet`. Useful for building custom backdrops or close buttons:
+
+```tsx
+import { useSheetContext } from 'react-edge-sheet';
+
+function MyCloseButton() {
+  const { isEntered, isExiting, close } = useSheetContext();
+  return (
+    <button onClick={close} style={{ opacity: isEntered && !isExiting ? 1 : 0 }}>
+      Close
+    </button>
+  );
+}
+```
+
+### `SheetBackdropComponentProps`
+
+```ts
+interface SheetBackdropComponentProps {
+  isExiting: boolean;
+  isEntered: boolean;
+  close: () => void;
+  closeOnBackdropClick: boolean;
+  style?: React.CSSProperties;
+  className?: string;
+}
+```
+
+---
+
+## Full Props Interface
+
+```ts
+interface SheetProps {
+  children?: React.ReactNode;
+
+  /** Which screen edge the sheet slides from. Default: 'bottom' */
+  edge?: SheetEdge;
+
+  /** Horizontal align for top/bottom, vertical align for left/right. Default: 'center' */
+  align?: 'start' | 'center' | 'end';
+
+  /** Controlled open state */
+  open?: boolean;
+
+  /** Called when open state should change */
+  onOpenChange?: (open: boolean) => void;
+
+  /** Fires after enter animation completes */
+  onOpen?: () => void;
+
+  /** Fires after exit animation completes */
+  onClose?: () => void;
+
+  /** Portal target. undefined = document.body, null = inline render */
+  portal?: HTMLElement | null;
+
+  /** Close when backdrop is clicked. Default: true */
+  closeOnBackdropClick?: boolean;
+
+  /** When false, no backdrop is rendered. Default: true */
+  backdrop?: boolean;
+
+  /** Custom backdrop component. Receives SheetBackdropComponentProps */
+  backdropComponent?: (props: SheetBackdropComponentProps) => React.ReactNode;
+
+  /** Animate panel size changes via ResizeObserver. Default: true */
+  animateSize?: boolean;
+
+  /** CSS z-index. Default: 200 */
+  zIndex?: number;
+
+  /** max-height (vertical sides) or max-width (horizontal sides) */
+  maxSize?: string;
+
+  /** Explicit max-height of the panel */
+  maxHeight?: string;
+
+  /** Explicit max-width of the panel */
+  maxWidth?: string;
+
+  /** Shorthand: min-height (vertical) or min-width (horizontal) */
+  minSize?: string;
+
+  /** Explicit min-height of the panel */
+  minHeight?: string;
+
+  /** Explicit min-width of the panel */
+  minWidth?: string;
+
+  /** Override panel slide transition */
+  transition?: string;
+
+  /** Override size-change transition when animateSize is true */
+  sizeTransition?: string;
+
+  /** Override backdrop opacity transition (default backdrop only) */
+  backdropTransition?: string;
+
+  /** Inline styles for the backdrop (default backdrop only) */
+  backdropStyle?: React.CSSProperties;
+
+  /** CSS class for the backdrop (default backdrop only) */
+  backdropClassName?: string;
+
+  /** Inline styles for the sheet panel */
+  style?: React.CSSProperties;
+
+  /** CSS class for the sheet panel */
+  className?: string;
+
+  /** Enable drag-to-dismiss gesture. Default: false (true when showDragHandle is true) */
+  draggable?: boolean;
+
+  /** Show a drag handle pill. Also enables draggable unless explicitly set to false. */
+  showDragHandle?: boolean;
+
+  /** Inline styles for the default drag handle pill. Ignored when dragHandleComponent is set. */
+  dragHandleStyle?: React.CSSProperties;
+
+  /** CSS class for the default drag handle pill. Ignored when dragHandleComponent is set. */
+  dragHandleClassName?: string;
+
+  /** Replace the default drag handle pill with a custom element. */
+  dragHandleComponent?: React.ReactNode;
+
+  /** Pixels to drag before dismissing. Default: 80 */
+  dragThreshold?: number;
+
+  /** Velocity (px/ms) above which release triggers dismiss. Default: 0.3 */
+  dragVelocityThreshold?: number;
+
+  /** Snap points array in ascending order, e.g. ['200px','50vh','90vh'] */
+  snapPoints?: string[];
+
+  /** Initial snap index. Default: last (largest) snap point */
+  defaultSnapPoint?: number;
+
+  /** Called when the active snap point changes */
+  onSnapChange?: (index: number) => void;
+}
+```

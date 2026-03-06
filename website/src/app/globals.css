@@ -1,0 +1,240 @@
+/* ─── Tailwind v4 import ────────────────────────────────── */
+@import "tailwindcss";
+
+/* ─── Source detection (v4 replaces content: [...]) ────── */
+@source "../components/**/*.{ts,tsx}";
+@source "../app/**/*.{ts,tsx,mdx}";
+@source "../content/**/*.mdx";
+
+/* ─── Dark mode variant (next-themes class strategy) ────── */
+@custom-variant dark (&:is(.dark *));
+
+/* ─── Design System @theme block ────────────────────────── */
+@theme {
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* Brand */
+  --color-brand:             oklch(60% 0.25 285);
+  --color-brand-foreground:  oklch(99% 0 0);
+
+  /* Atmospheric palette */
+  --color-atmos-purple: oklch(68% 0.22 290);
+  --color-atmos-blue:   oklch(65% 0.20 255);
+  --color-atmos-indigo: oklch(62% 0.22 275);
+
+  /* Glass tokens — set by @layer base for light/dark */
+  --color-glass-surface: var(--glass-surface);
+  --color-glass-border:  var(--glass-border);
+  --color-glass-overlay: var(--glass-overlay);
+  --color-foreground:         var(--foreground);
+  --color-foreground-muted:   var(--foreground-muted);
+  --color-background:         var(--background);
+
+  /* Backdrop blur */
+  --blur-glass:       12px;
+  --blur-glass-heavy: 24px;
+
+  /* Animations */
+  --animate-fade-in:    fade-in 0.5s ease-out both;
+  --animate-slide-up:   slide-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-float:      float 4s ease-in-out infinite;
+  --animate-panel-bottom: panel-bottom 0.42s cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-panel-top:    panel-top    0.42s cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-panel-left:   panel-left   0.42s cubic-bezier(0.4, 0, 0.2, 1) both;
+  --animate-panel-right:  panel-right  0.42s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* ─── Keyframes ──────────────────────────────────────────── */
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes panel-bottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+@keyframes panel-top {
+  from { transform: translateY(-100%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+@keyframes panel-left {
+  from { transform: translateX(-100%); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+@keyframes panel-right {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+@keyframes demo-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Light / Dark CSS variables ─────────────────────────── */
+@layer base {
+  :root {
+    --glass-surface:  oklch(99% 0.005 260);
+    --glass-overlay:  oklch(97% 0.008 260);
+    --glass-border:   oklch(82% 0.015 270);
+    --foreground:         oklch(18% 0.02 255);
+    --foreground-muted:   oklch(50% 0.015 260);
+    --background:         oklch(97% 0.008 255);
+  }
+
+  .dark {
+    --glass-surface:  oklch(18% 0.015 260);
+    --glass-overlay:  oklch(13% 0.012 260);
+    --glass-border:   oklch(28% 0.020 265);
+    --foreground:         oklch(92% 0.008 250);
+    --foreground-muted:   oklch(58% 0.012 260);
+    --background:         oklch(10% 0.012 255);
+  }
+
+  /* Hero phone mockup — sheet visibility per theme */
+  :root {
+    --hero-sheet-bg: linear-gradient(135deg, oklch(35% 0.04 270 / 0.92) 0%, oklch(28% 0.035 265 / 0.88) 100%);
+    --hero-sheet-border-top: oklch(50% 0.03 270 / 0.6);
+    --hero-sheet-border-side: oklch(40% 0.025 265 / 0.4);
+    --hero-sheet-handle: oklch(55% 0.02 260 / 0.5);
+    --hero-sheet-row-1: oklch(60% 0.02 260 / 0.55);
+    --hero-sheet-row-2: oklch(50% 0.02 260 / 0.35);
+    --hero-sheet-btn-bg: linear-gradient(135deg, oklch(62% 0.2 290 / 0.85), oklch(58% 0.18 255 / 0.85));
+    --hero-sheet-btn-border: oklch(70% 0.04 275 / 0.4);
+  }
+
+  .dark {
+    --hero-sheet-bg: linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.10) 100%);
+    --hero-sheet-border-top: rgba(255,255,255,0.85);
+    --hero-sheet-border-side: rgba(255,255,255,0.5);
+    --hero-sheet-handle: rgba(255,255,255,0.5);
+    --hero-sheet-row-1: rgba(255,255,255,0.35);
+    --hero-sheet-row-2: rgba(255,255,255,0.2);
+    --hero-sheet-btn-bg: linear-gradient(135deg, oklch(68% 0.22 290 / 0.6), oklch(65% 0.20 255 / 0.6));
+    --hero-sheet-btn-border: rgba(255,255,255,0.3);
+  }
+}
+
+/* ─── Atmospheric background ─────────────────────────────── */
+body {
+  background-color: var(--background);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%,  oklch(80% 0.18 290 / 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%,  oklch(75% 0.16 255 / 0.4) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,  oklch(78% 0.14 275 / 0.25) 0%, transparent 70%);
+  background-attachment: fixed;
+}
+
+.dark body {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%,  oklch(28% 0.14 290 / 0.6) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%,  oklch(25% 0.12 255 / 0.5) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,  oklch(22% 0.10 275 / 0.35) 0%, transparent 70%);
+}
+
+/* ─── Glass component utilities ──────────────────────────── */
+@layer components {
+  .glass-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 1rem;
+    background-color: color-mix(in oklch, var(--glass-surface) 60%, transparent);
+    backdrop-filter: blur(var(--blur-glass));
+    -webkit-backdrop-filter: blur(var(--blur-glass));
+    border: 1px solid color-mix(in oklch, var(--glass-border) 60%, transparent);
+    box-shadow:
+      0 4px 24px -4px oklch(0% 0 0 / 0.08),
+      0 0 0 1px color-mix(in oklch, var(--glass-border) 50%, transparent);
+    transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .glass-card:hover {
+    box-shadow:
+      0 12px 48px -8px oklch(0% 0 0 / 0.14),
+      0 0 0 1px color-mix(in oklch, var(--glass-border) 50%, transparent);
+    border-color: color-mix(in oklch, var(--glass-border) 90%, transparent);
+  }
+
+  .glass-heavy {
+    background-color: color-mix(in oklch, var(--glass-surface) 80%, transparent);
+    backdrop-filter: blur(var(--blur-glass-heavy));
+    -webkit-backdrop-filter: blur(var(--blur-glass-heavy));
+    border: 1px solid color-mix(in oklch, var(--glass-border) 70%, transparent);
+  }
+
+  .glass-nav {
+    background-color: color-mix(in oklch, var(--glass-surface) 85%, transparent);
+    backdrop-filter: blur(var(--blur-glass-heavy));
+    -webkit-backdrop-filter: blur(var(--blur-glass-heavy));
+    border-bottom: 1px solid color-mix(in oklch, var(--glass-border) 50%, transparent);
+  }
+}
+
+/* ─── rehype-pretty-code dual theme switching ────────────── */
+[data-theme='dark']  { display: none; }
+.dark [data-theme='light'] { display: none; }
+.dark [data-theme='dark']  { display: block; }
+
+[data-rehype-pretty-code-figure] pre {
+  overflow-x: auto;
+  padding: 1.25rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  background: transparent !important;
+}
+
+[data-highlighted-line] {
+  background-color: color-mix(in oklch, var(--color-atmos-purple) 12%, transparent);
+  margin-inline: -1rem;
+  padding-inline: 1rem;
+}
+
+/* Inline code in MDX */
+:not(pre) > code {
+  border-radius: 0.375rem;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.875em;
+  font-family: var(--font-mono);
+  background-color: color-mix(in oklch, var(--glass-overlay) 90%, transparent);
+  color: var(--color-atmos-indigo);
+  border: 1px solid color-mix(in oklch, var(--glass-border) 40%, transparent);
+}
+
+/* ─── MDX Prose ──────────────────────────────────────────── */
+@layer components {
+  .mdx-prose h1 { font-size: 1.875rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 1.5rem; margin-top: 2rem; color: var(--foreground); }
+  .mdx-prose h2 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 1rem; margin-top: 2.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid color-mix(in oklch, var(--glass-border) 40%, transparent); color: var(--foreground); }
+  .mdx-prose h3 { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; margin-top: 2rem; color: var(--foreground); }
+  .mdx-prose p  { margin-bottom: 1rem; color: var(--foreground-muted); line-height: 1.75; }
+  .mdx-prose ul, .mdx-prose ol { margin-bottom: 1rem; padding-left: 1.5rem; color: var(--foreground-muted); }
+  .mdx-prose li { margin-bottom: 0.375rem; }
+  .mdx-prose a  { color: var(--color-brand); text-decoration: underline; text-underline-offset: 4px; }
+  .mdx-prose table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; }
+  .mdx-prose th { text-align: left; padding: 0.5rem 1rem; background-color: color-mix(in oklch, var(--glass-surface) 80%, transparent); border: 1px solid color-mix(in oklch, var(--glass-border) 50%, transparent); font-weight: 600; font-size: 0.875rem; color: var(--foreground); }
+  .mdx-prose td { padding: 0.5rem 1rem; border: 1px solid color-mix(in oklch, var(--glass-border) 30%, transparent); font-size: 0.875rem; color: var(--foreground-muted); }
+  .mdx-prose blockquote { border-left: 4px solid var(--color-brand); padding-left: 1rem; color: var(--foreground-muted); font-style: italic; margin: 1rem 0; }
+  .mdx-prose pre { border-radius: 0.75rem; overflow: hidden; border: 1px solid color-mix(in oklch, var(--glass-border) 40%, transparent); margin-bottom: 1.5rem; background-color: color-mix(in oklch, var(--glass-surface) 70%, transparent) !important; }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { border-radius: 9999px; background-color: color-mix(in oklch, var(--glass-border) 70%, transparent); }
+::-webkit-scrollbar-thumb:hover { background-color: var(--glass-border); }
+
+.scrollbar-hide { scrollbar-width: none; -ms-overflow-style: none; }
+.scrollbar-hide::-webkit-scrollbar { display: none; }

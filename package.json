@@ -1,0 +1,86 @@
+{
+  "name": "react-edge-sheet",
+  "version": "0.1.0",
+  "description": "A lightweight React component for sliding panels from any screen edge",
+  "license": "MIT",
+  "author": "Bora Öksüzoglu <bora@borao.dev>",
+  "keywords": [
+    "react",
+    "bottom-sheet",
+    "drawer",
+    "sheet",
+    "side-panel",
+    "modal",
+    "gesture",
+    "drag",
+    "snap-points",
+    "typescript",
+    "animation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boraoksuzoglu/react-edge-sheet"
+  },
+  "homepage": "https://edge-sheet.borao.dev",
+  "bugs": {
+    "url": "https://github.com/boraoksuzoglu/react-edge-sheet/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "sideEffects": false,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src/ website/src/",
+    "lint:fix": "eslint src/ website/src/ --fix",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "size": "size-limit",
+    "prepublishOnly": "npm run typecheck && npm run lint && npm run test:run && npm run build && npm run size"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.3",
+    "@size-limit/preset-small-lib": "^12.0.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^9.39.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "jsdom": "^28.1.0",
+    "prettier": "^3.8.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "size-limit": "^12.0.1",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0",
+    "typescript-eslint": "^8.56.1",
+    "vitest": "^4.0.18"
+  }
+}

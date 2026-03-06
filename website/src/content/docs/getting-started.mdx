@@ -1,0 +1,115 @@
+---
+title: Getting Started
+description: Install react-edge-sheet and create your first sliding panel in minutes.
+---
+
+# Getting Started
+
+`react-edge-sheet` is a lightweight React component for sliding panels from any screen edge — top, bottom, left, or right. Zero runtime dependencies, TypeScript-first, ~4 kB gzipped.
+
+## Installation
+
+```bash
+npm install react-edge-sheet
+```
+
+Or with other package managers:
+
+```bash
+yarn add react-edge-sheet
+pnpm add react-edge-sheet
+```
+
+### Peer Dependencies
+
+`react-edge-sheet` requires React 17 or higher:
+
+```bash
+npm install react react-dom
+```
+
+## Your First Sheet
+
+Here's the simplest possible usage using the **imperative ref API**:
+
+```tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function App() {
+  const ref = useRef<SheetRef>(null);
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>Open Sheet</button>
+
+      <Sheet ref={ref} edge="bottom">
+        <div style={{ padding: '2rem' }}>
+          <h2>Hello from the bottom!</h2>
+          <button onClick={() => ref.current?.close()}>Close</button>
+        </div>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Controlled Mode
+
+Alternatively, use the **controlled API** with `open` and `onOpenChange`:
+
+```tsx
+import { useState } from 'react';
+import { Sheet } from 'react-edge-sheet';
+
+export function App() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Open</button>
+
+      <Sheet open={open} onOpenChange={setOpen} edge="right">
+        <div style={{ padding: '2rem', width: '300px' }}>
+          <h2>Right Drawer</h2>
+          <button onClick={() => setOpen(false)}>Close</button>
+        </div>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Next.js Notes
+
+The `Sheet` component uses `createPortal` and `document`, which makes it incompatible with SSR. Wrap it in a dynamic import with `ssr: false`:
+
+```tsx
+import dynamic from 'next/dynamic';
+
+const Sheet = dynamic(
+  () => import('react-edge-sheet').then((m) => ({ default: m.Sheet })),
+  { ssr: false }
+);
+```
+
+Or wrap your component using the Sheet:
+
+```tsx
+const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
+```
+
+## TypeScript Imports
+
+All types are exported from the package root:
+
+```ts
+import { Sheet, SheetRef, SheetProps, SheetEdge } from 'react-edge-sheet';
+```
+
+| Export | Description |
+|---|---|
+| `Sheet` | The main component |
+| `SheetRef` | Type for the imperative ref handle |
+| `SheetProps` | Full props interface |
+| `SheetEdge` | `'top' \| 'bottom' \| 'left' \| 'right'` |

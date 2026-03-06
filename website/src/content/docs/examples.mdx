@@ -1,0 +1,347 @@
+---
+title: Examples
+description: Common patterns and recipes for react-edge-sheet.
+---
+
+# Examples
+
+## Bottom Sheet
+
+The most common pattern — a sheet that slides up from the bottom, floating away from the edge with fully-rounded corners:
+
+<DocDemo edge="bottom" label="Open Bottom Sheet" />
+
+```tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function BottomSheet() {
+  const ref = useRef<SheetRef>(null);
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>Open</button>
+
+      <Sheet
+        ref={ref}
+        edge="bottom"
+        style={{
+          borderRadius: '1.25rem',
+          padding: '1.5rem',
+        }}
+      >
+        <div style={{ width: 36, height: 4, background: '#ccc', borderRadius: 9999, margin: '0 auto 1.25rem' }} />
+        <h2>Bottom Sheet</h2>
+        <p>Slides up from the bottom edge.</p>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Right Drawer (Navigation)
+
+A sidebar navigation drawer that floats from the right edge:
+
+<DocDemo edge="right" label="Open Right Drawer" />
+
+```tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function RightDrawer() {
+  const ref = useRef<SheetRef>(null);
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>☰ Menu</button>
+
+      <Sheet
+        ref={ref}
+        edge="right"
+        style={{
+          width: '280px',
+          borderRadius: '1.25rem',
+          padding: '1.5rem',
+        }}
+      >
+        <h2>Navigation</h2>
+        <nav style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+          <a href="/">Home</a>
+          <a href="/docs">Docs</a>
+          <a href="/api">API</a>
+        </nav>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Top Bar (Command Palette)
+
+A floating command palette that drops from the top (centered):
+
+<DocDemo edge="top" label="Open Command Palette" />
+
+```tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function CommandPalette() {
+  const ref = useRef<SheetRef>(null);
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>⌘K</button>
+
+      <Sheet
+        ref={ref}
+        edge="top"
+        style={{
+          borderRadius: '1.25rem',
+          padding: '0',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.875rem 1.25rem' }}>
+          <input
+            autoFocus
+            placeholder="Search anything..."
+            style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontSize: '1rem' }}
+          />
+        </div>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Top-Right Notifications
+
+Use `align="end"` with `edge="top"` to position a notifications dropdown in the top-right corner:
+
+```tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function NotificationsDropdown() {
+  const ref = useRef<SheetRef>(null);
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>◉ Notifications</button>
+
+      <Sheet
+        ref={ref}
+        edge="top"
+        align="end"
+        maxWidth="380px"
+        style={{
+          borderRadius: '1rem',
+          padding: '1rem',
+        }}
+      >
+        <h3>Notifications</h3>
+        <ul>
+          <li>New comment on your post</li>
+          <li>Deploy completed</li>
+        </ul>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Glassmorphism Style
+
+A frosted-glass sheet with a tinted gradient backdrop:
+
+<DocDemo
+  edge="bottom"
+  label="Open Glass Sheet"
+  sheetStyle={{
+    borderRadius: '1.25rem',
+    background: 'linear-gradient(145deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.10) 100%)',
+    border: '1px solid rgba(255,255,255,0.55)',
+    backdropFilter: 'blur(32px)',
+    boxShadow: '0 32px 80px -16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.6)',
+    padding: '1.5rem',
+  }}
+  backdropStyle={{
+    background: 'linear-gradient(to top, oklch(68% 0.22 290 / 0.2) 0%, oklch(65% 0.20 255 / 0.08) 50%, transparent 100%)',
+  }}
+/>
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  backdropStyle={{
+    background: 'linear-gradient(to top, oklch(68% 0.22 290 / 0.2) 0%, transparent 100%)',
+  }}
+  style={{
+    borderRadius: '1.25rem',
+    background: 'linear-gradient(145deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.10) 100%)',
+    border: '1px solid rgba(255,255,255,0.55)',
+    backdropFilter: 'blur(32px)',
+    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.6)',
+    padding: '1.5rem',
+  }}
+>
+  {/* content */}
+</Sheet>
+```
+
+## Dynamic Content Height
+
+The `animateSize` prop (enabled by default) uses a `ResizeObserver` to smoothly animate the sheet panel when its content height changes. Click the button below to open a sheet where you can add and remove items — watch the panel grow and shrink:
+
+<DocDemo edge="bottom" label="Open Dynamic Height Demo" />
+
+```tsx
+import { useRef, useState } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+const TASKS = ['Review PRs', 'Update deps', 'Write tests', 'Deploy'];
+
+export function DynamicSheet() {
+  const ref = useRef<SheetRef>(null);
+  const [items, setItems] = useState(TASKS.slice(0, 2));
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>Open</button>
+
+      {/* animateSize is true by default — ResizeObserver drives height */}
+      <Sheet
+        ref={ref}
+        edge="bottom"
+        animateSize
+        style={{ borderRadius: '1.25rem', padding: '1.5rem' }}
+      >
+        <h3>Tasks ({items.length})</h3>
+
+        {items.map((item, i) => (
+          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0' }}>
+            <span>{item}</span>
+            <button onClick={() => setItems(prev => prev.filter((_, j) => j !== i))}>✕</button>
+          </div>
+        ))}
+
+        <button
+          onClick={() => setItems(prev => [...prev, TASKS[prev.length % TASKS.length]])}
+          disabled={items.length >= TASKS.length}
+        >
+          + Add Task
+        </button>
+      </Sheet>
+    </>
+  );
+}
+```
+
+The key: `animateSize` (default `true`) applies a CSS height transition driven by `ResizeObserver`. Set `animateSize={false}` to disable it.
+
+## Controlled Mode
+
+When your parent component owns the open state:
+
+<DocDemo edge="bottom" label="Open Controlled Sheet" />
+
+```tsx
+import { useState } from 'react';
+import { Sheet } from 'react-edge-sheet';
+
+export function ControlledSheet() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <button onClick={() => setOpen(true)}>Open</button>
+
+      <Sheet
+        open={open}
+        onOpenChange={setOpen}
+        edge="bottom"
+        style={{ borderRadius: '1.25rem', padding: '1.5rem' }}
+      >
+        <p>State managed externally.</p>
+        <button onClick={() => setOpen(false)}>Close</button>
+      </Sheet>
+    </>
+  );
+}
+```
+
+## Custom Portal Target
+
+Render the sheet into a specific DOM element instead of `document.body`:
+
+```tsx
+import { useRef, useEffect, useState } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function CustomPortal() {
+  const ref = useRef<SheetRef>(null);
+  const [container, setContainer] = useState<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setContainer(document.getElementById('sheet-container'));
+  }, []);
+
+  return (
+    <>
+      <div id="sheet-container" style={{ position: 'relative', height: '400px', overflow: 'hidden' }} />
+      <button onClick={() => ref.current?.open()}>Open in container</button>
+
+      {container && (
+        <Sheet ref={ref} portal={container} edge="bottom">
+          <div style={{ padding: '1.5rem' }}>Contained sheet!</div>
+        </Sheet>
+      )}
+    </>
+  );
+}
+```
+
+## No Backdrop (Sheet-Only)
+
+Use `backdrop={false}` when you don't want an overlay — useful for non-modal floating panels:
+
+```tsx
+<Sheet ref={ref} backdrop={false} edge="right">
+  <div style={{ padding: '1.5rem', width: '280px' }}>
+    Sheet without backdrop — background stays interactive.
+  </div>
+</Sheet>
+```
+
+## Inline Render (No Portal)
+
+Pass `portal={null}` to render the sheet inline in the document flow:
+
+```tsx
+<Sheet ref={ref} portal={null} edge="bottom">
+  <div style={{ padding: '1.5rem' }}>No portal — renders in place.</div>
+</Sheet>
+```
+
+## onOpen / onClose Callbacks
+
+Execute logic after the animation fully completes:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  onOpen={() => {
+    // Focus first input, fetch data, etc.
+    inputRef.current?.focus();
+  }}
+  onClose={() => {
+    // Clean up, reset form state, etc.
+    resetForm();
+  }}
+>
+  <form>...</form>
+</Sheet>
+```

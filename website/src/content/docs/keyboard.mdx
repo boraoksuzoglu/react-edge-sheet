@@ -1,0 +1,182 @@
+---
+title: Keyboard & Focus
+description: Focus trap, focus restoration, ARIA props, and screen reader guidance.
+---
+
+# Keyboard & Focus
+
+`react-edge-sheet` ships with a complete focus management implementation — zero configuration required.
+
+---
+
+## Focus Trap
+
+When a sheet opens, Tab and Shift+Tab are automatically constrained to focusable elements inside the panel. Open the sheet below and press Tab to see the cycling in action:
+
+<FocusTrapDemo />
+
+This works automatically — no props needed:
+
+```tsx
+<Sheet ref={ref} edge="bottom">
+  <div style={{ padding: '2rem' }}>
+    <button onClick={() => ref.current?.close()}>Cancel</button>
+    <button onClick={handleSave}>Save</button>
+  </div>
+</Sheet>
+```
+
+Focusable elements include: links (`a[href]`), enabled buttons, inputs, selects, textareas, elements with `tabindex` ≥ 0, and `details > summary`. Elements inside `[aria-hidden="true"]` containers are excluded. If the sheet has no focusable children, Tab focus cycles through the panel container itself.
+
+---
+
+## Auto-focus on Open
+
+After the enter animation completes, the first focusable element inside the sheet receives focus automatically. If no focusable elements exist, the panel itself receives focus (via `tabIndex={-1}`) so keyboard users are never stranded outside the dialog. This matches the WAI-ARIA dialog pattern.
+
+To override which element gets focus, use `onOpen`:
+
+```tsx
+const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+<Sheet
+  ref={ref}
+  edge="bottom"
+  onOpen={() => closeButtonRef.current?.focus()}
+>
+  <div style={{ padding: '2rem' }}>
+    <button ref={closeButtonRef} onClick={() => ref.current?.close()}>
+      Close
+    </button>
+    <p>Content here</p>
+  </div>
+</Sheet>
+```
+
+---
+
+## Focus Restoration
+
+When the sheet closes (after the exit animation), focus returns to whichever element was focused before the sheet opened. This is important for keyboard users navigating with Tab.
+
+No configuration needed — it is always on.
+
+---
+
+## ARIA Props
+
+The dialog element always has `role="dialog"` and `aria-modal="true"`. To make it properly labeled for screen readers, use one of the three ARIA props below — select a mode to see how each one is applied on the dialog element:
+
+<AriaDemo />
+
+### aria-labelledby
+
+Point to the heading inside the sheet:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  aria-labelledby="confirm-title"
+>
+  <div style={{ padding: '2rem' }}>
+    <h2 id="confirm-title">Confirm deletion</h2>
+    <p>This action cannot be undone.</p>
+    <button onClick={() => ref.current?.close()}>Cancel</button>
+    <button onClick={handleDelete}>Delete</button>
+  </div>
+</Sheet>
+```
+
+### aria-describedby
+
+Add a description for complex dialogs:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  aria-labelledby="settings-title"
+  aria-describedby="settings-desc"
+>
+  <div style={{ padding: '2rem' }}>
+    <h2 id="settings-title">Notification Settings</h2>
+    <p id="settings-desc">
+      Choose how you want to receive notifications.
+    </p>
+    {/* form controls */}
+  </div>
+</Sheet>
+```
+
+### aria-label
+
+Use when there is no visible heading:
+
+```tsx
+<Sheet ref={ref} edge="right" aria-label="Navigation menu">
+  <nav>...</nav>
+</Sheet>
+```
+
+---
+
+## Escape Key
+
+Pressing Escape always closes the sheet. This is built-in and cannot be disabled — it is required by the WAI-ARIA dialog pattern.
+
+---
+
+## Screen Reader Guidance
+
+- Use `aria-labelledby` pointing to a visible heading whenever possible — this is preferred over `aria-label`
+- The sheet is announced as a dialog with `aria-modal="true"`, which tells screen readers to ignore content behind it
+- Place the primary action button first in DOM order for ease of access
+- Avoid nesting interactive sheets — screen readers may lose context
+
+---
+
+## Example: Accessible Confirmation Dialog
+
+```tsx
+import { useRef } from 'react';
+import { Sheet, SheetRef } from 'react-edge-sheet';
+
+export function DeleteConfirmSheet({ onConfirm }: { onConfirm: () => void }) {
+  const ref = useRef<SheetRef>(null);
+
+  return (
+    <>
+      <button onClick={() => ref.current?.open()}>Delete item</button>
+
+      <Sheet
+        ref={ref}
+        edge="bottom"
+        aria-labelledby="delete-title"
+        aria-describedby="delete-desc"
+        style={{
+          background: 'white',
+          borderRadius: '1.5rem 1.5rem 0 0',
+          padding: '2rem',
+        }}
+      >
+        <h2 id="delete-title">Delete item?</h2>
+        <p id="delete-desc">
+          This will permanently delete the item. This action cannot be undone.
+        </p>
+        <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
+          <button onClick={() => ref.current?.close()}>Cancel</button>
+          <button
+            onClick={() => {
+              ref.current?.close();
+              onConfirm();
+            }}
+          >
+            Delete
+          </button>
+        </div>
+      </Sheet>
+    </>
+  );
+}
+```

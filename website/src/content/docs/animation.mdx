@@ -1,0 +1,175 @@
+---
+title: Animations
+description: Animation presets, asymmetric enter/exit transitions, and full overrides.
+---
+
+# Animations
+
+`react-edge-sheet` gives you multiple layers of animation control — from quick preset names to full CSS transition strings.
+
+---
+
+## Animation Presets
+
+Use `animationPreset` to choose from five built-in presets. Pick one below and open the sheet to feel the difference:
+
+<AnimationPresetDemo />
+
+| Preset | Transition | Character |
+|--------|-----------|-----------|
+| `default` | `0.42s cubic-bezier(0.4, 0, 0.2, 1)` | Smooth material-style |
+| `spring` | `0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)` | Slight overshoot |
+| `bounce` | `0.6s cubic-bezier(0.34, 1.56, 0.64, 1)` | Pronounced bounce |
+| `snappy` | `0.22s cubic-bezier(0.4, 0, 0.2, 1)` | Fast and crisp |
+| `slow` | `0.7s cubic-bezier(0.4, 0, 0.2, 1)` | Deliberate, cinematic |
+
+```tsx
+// Spring — slight overshoot, feels alive
+<Sheet ref={ref} edge="bottom" animationPreset="spring">
+  ...
+</Sheet>
+
+// Snappy — fast UI panels
+<Sheet ref={ref} edge="right" animationPreset="snappy">
+  ...
+</Sheet>
+
+// Bounce — playful drawers
+<Sheet ref={ref} edge="bottom" animationPreset="bounce">
+  ...
+</Sheet>
+```
+
+---
+
+## Asymmetric Enter / Exit Transitions
+
+Use `enterTransition` and `exitTransition` to set different animations for opening and closing. Select a mode below — open and close slowly to notice the difference:
+
+<AsymmetricTransitionDemo />
+
+```tsx
+// Fast in, slow out
+<Sheet
+  ref={ref}
+  edge="bottom"
+  enterTransition="transform 0.15s cubic-bezier(0, 0, 0.2, 1)"
+  exitTransition="transform 0.5s cubic-bezier(0.4, 0, 1, 1)"
+>
+  ...
+</Sheet>
+```
+
+```tsx
+// Instant open, animated close (command palette style)
+<Sheet
+  ref={ref}
+  edge="top"
+  enterTransition="transform 0s"
+  exitTransition="transform 0.3s ease-in"
+>
+  ...
+</Sheet>
+```
+
+---
+
+## Priority Order
+
+Transitions are resolved with the following priority (highest wins):
+
+1. `transition` — full override, applies to both enter and exit
+2. `enterTransition` / `exitTransition` — directional overrides
+3. `animationPreset` — named preset
+4. Built-in default (`default` preset)
+
+```tsx
+// transition overrides everything
+<Sheet ref={ref} transition="transform 0.25s ease-out" animationPreset="bounce">
+  {/* uses 0.25s ease-out, bounce is ignored */}
+</Sheet>
+
+// enterTransition takes priority over preset for enter only
+<Sheet ref={ref} animationPreset="slow" enterTransition="transform 0.1s ease">
+  {/* enter: 0.1s ease | exit: slow preset (0.7s) */}
+</Sheet>
+```
+
+---
+
+## Size Transition
+
+Control the smooth resize animation when content height or width changes (`animateSize={true}`):
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  sizeTransition="0.15s ease-out"
+>
+  ...
+</Sheet>
+```
+
+Disable size animation entirely:
+
+```tsx
+<Sheet ref={ref} edge="bottom" animateSize={false}>
+  ...
+</Sheet>
+```
+
+---
+
+## Backdrop Transition
+
+Override the backdrop fade animation (default backdrop only):
+
+```tsx
+<Sheet
+  ref={ref}
+  backdropTransition="opacity 0.15s ease"
+>
+  ...
+</Sheet>
+```
+
+---
+
+## Full Override
+
+`transition` replaces the built-in transition completely with any CSS transition string:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="left"
+  transition="transform 0.4s steps(4, end)"
+>
+  ...
+</Sheet>
+```
+
+---
+
+## Example: Notification Drawer
+
+```tsx
+// Snappy enter, gentle exit — ideal for transient panels
+<Sheet
+  ref={ref}
+  edge="top"
+  align="end"
+  maxWidth="400px"
+  enterTransition="transform 0.18s cubic-bezier(0, 0, 0.2, 1)"
+  exitTransition="transform 0.35s cubic-bezier(0.4, 0, 1, 1)"
+  style={{
+    background: 'white',
+    borderRadius: '0 0 1rem 1rem',
+    boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+    padding: '1.5rem',
+  }}
+>
+  <p>Your file has been saved.</p>
+</Sheet>
+```

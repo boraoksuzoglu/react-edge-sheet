@@ -1,0 +1,259 @@
+---
+title: Gestures
+description: Drag-to-dismiss and snap points for bottom sheets and drawers.
+---
+
+# Gestures
+
+`react-edge-sheet` supports touch and mouse drag gestures for dismissing sheets and snapping between sizes.
+
+---
+
+## Drag to Dismiss
+
+Add `draggable` to enable the drag-to-dismiss gesture. The demo below uses `showDragHandle` — grab the pill and drag down:
+
+<DragToDismissDemo />
+
+```tsx
+<Sheet ref={ref} edge="bottom" draggable>
+  <div style={{ padding: '2rem' }}>
+    <p>Drag down to close</p>
+  </div>
+</Sheet>
+```
+
+Works on all edges — drag down for `bottom`, drag up for `top`, drag left for `left`, drag right for `right`.
+
+### Drag Handle
+
+Add a visible handle pill with `showDragHandle`. This also enables `draggable` automatically:
+
+```tsx
+<Sheet ref={ref} edge="bottom" showDragHandle>
+  <div style={{ padding: '2.5rem 2rem 2rem' }}>
+    <p>Content here</p>
+  </div>
+</Sheet>
+```
+
+The handle is positioned relative to the edge:
+- `bottom` → top-center, horizontal pill
+- `top` → bottom-center, horizontal pill
+- `left` → right-center, vertical pill
+- `right` → left-center, vertical pill
+
+To show the handle without enabling drag:
+
+```tsx
+<Sheet ref={ref} edge="bottom" showDragHandle draggable={false}>
+  ...
+</Sheet>
+```
+
+### Drag Handle Customization
+
+**Style the default pill** with `dragHandleStyle` / `dragHandleClassName`:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  dragHandleStyle={{ background: 'rgba(255,255,255,0.6)', width: '3rem' }}
+>
+  ...
+</Sheet>
+```
+
+**Replace it entirely** with `dragHandleComponent`. `showDragHandle` is not required — providing `dragHandleComponent` is enough to render it:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  dragHandleComponent={
+    <div style={{
+      position: 'absolute',
+      top: '0.75rem',
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: '2rem',
+      height: '0.2rem',
+      borderRadius: 999,
+      background: 'white',
+    }} />
+  }
+>
+  ...
+</Sheet>
+```
+
+When `dragHandleComponent` is set, `dragHandleStyle` and `dragHandleClassName` are ignored.
+
+---
+
+## Drag Thresholds
+
+Control when a release triggers dismiss:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  draggable
+  dragThreshold={120}          // px dragged (default: 80)
+  dragVelocityThreshold={0.5}  // px/ms velocity (default: 0.3)
+>
+  ...
+</Sheet>
+```
+
+A release triggers dismiss if **either** condition is met:
+- `|dragOffset| > dragThreshold`
+- `velocity > dragVelocityThreshold`
+
+For a forgiving feel (easier to dismiss), lower both values. For a sticky feel (harder to dismiss), raise them.
+
+---
+
+## Rubber Band
+
+Dragging against the dismiss direction (e.g. dragging up on a bottom sheet) creates a rubber band resistance — the offset is 20% of actual drag distance. This gives natural physical feedback.
+
+---
+
+## Snap Points
+
+Use `snapPoints` to define multiple heights (or widths for left/right edges). The demo below has three snap heights — drag up/down to cycle between them:
+
+<SnapPointsDemo />
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  snapPoints={['200px', '50vh', '90vh']}
+>
+  <div style={{ padding: '2rem' }}>
+    <p>Drag to snap between heights</p>
+  </div>
+</Sheet>
+```
+
+Snap points should be in **ascending order** (smallest to largest).
+
+### Default Snap Point
+
+By default the sheet opens at the largest snap point (last index). Override with `defaultSnapPoint`:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  snapPoints={['25vh', '50vh', '90vh']}
+  defaultSnapPoint={1}   // opens at 50vh
+>
+  ...
+</Sheet>
+```
+
+### onSnapChange
+
+React to snap changes with `onSnapChange`:
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  snapPoints={['200px', '50vh', '90vh']}
+  onSnapChange={(index) => console.log('snapped to', index)}
+>
+  ...
+</Sheet>
+```
+
+### Collapsing from the smallest snap
+
+Dragging toward dismiss from the smallest snap point (`index === 0`) closes the sheet entirely.
+
+---
+
+## Common Patterns
+
+### Mini / Half / Full Sheet
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  snapPoints={['25vh', '50vh', '92vh']}
+  style={{ background: 'white', borderRadius: '1.5rem 1.5rem 0 0' }}
+>
+  <div style={{ padding: '1rem 1.5rem 2rem' }}>
+    <h3>Title</h3>
+    <p>Your content here.</p>
+  </div>
+</Sheet>
+```
+
+### Map-Style Sheet
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  snapPoints={['120px', '45vh', '85vh']}
+  defaultSnapPoint={0}
+  style={{ background: 'white', borderRadius: '1.5rem 1.5rem 0 0' }}
+>
+  <div style={{ padding: '1.5rem' }}>
+    <h3>Nearby Places</h3>
+    {/* list items */}
+  </div>
+</Sheet>
+```
+
+### Music Player Snap
+
+Drag up to expand to full player, drag down to collapse to mini player. Drag below mini to close.
+
+<MusicPlayerDemo />
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="bottom"
+  showDragHandle
+  snapPoints={['80px', '100vh']}
+  defaultSnapPoint={0}
+  style={{ background: '#1a1a1a', borderRadius: '1.5rem 1.5rem 0 0' }}
+>
+  <div style={{ padding: '1rem 1.5rem' }}>
+    {/* mini player or full player depending on snap */}
+  </div>
+</Sheet>
+```
+
+### Sidebar with Drag
+
+<SidebarDragDemo />
+
+```tsx
+<Sheet
+  ref={ref}
+  edge="left"
+  draggable
+  maxWidth="320px"
+  style={{ background: 'white', height: '100%' }}
+>
+  <nav style={{ padding: '2rem' }}>
+    {/* navigation items */}
+  </nav>
+</Sheet>
+```
