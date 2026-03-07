@@ -24,6 +24,9 @@ export function Footer() {
           >
             npm
           </a>
+          <a href="/llms.txt" className="hover:text-[var(--foreground)] transition-colors">
+            llms.txt
+          </a>
           <Link href="/docs/getting-started" className="hover:text-[var(--foreground)] transition-colors">
             Docs
           </Link>

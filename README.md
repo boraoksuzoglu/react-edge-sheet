@@ -156,6 +156,13 @@ const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
 
 Full API reference and live demos: **https://edge-sheet.borao.dev**
 
+## LLM-Friendly Docs
+
+Machine-readable documentation for AI assistants and code search tools:
+
+- **[llms.txt](https://edge-sheet.borao.dev/llms.txt)** — Lightweight index with links to all doc sections
+- **[llms-full.txt](https://edge-sheet.borao.dev/llms-full.txt)** — Complete documentation in a single plain-text file
+
 ## License
 
 MIT © [Bora Öksüzoglu](https://github.com/boraoksuzoglu)
