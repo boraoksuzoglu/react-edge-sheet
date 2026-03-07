@@ -77,7 +77,7 @@ export function buildLlmsFullContent(): string {
 
   sections.push('# react-edge-sheet — Complete Documentation\n');
   sections.push(
-    'Source: https://edge-sheet.borao.dev | npm: react-edge-sheet | GitHub: https://github.com/boraoksuzoglu/react-edge-sheet\n'
+    'Source: https://react-sheet.borao.dev | npm: react-edge-sheet | GitHub: https://github.com/boraoksuzoglu/react-edge-sheet\n'
   );
 
   for (const slug of DOC_ORDER) {

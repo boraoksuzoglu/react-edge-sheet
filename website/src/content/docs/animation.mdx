@@ -15,13 +15,13 @@ Use `animationPreset` to choose from five built-in presets. Pick one below and o
 
 <AnimationPresetDemo />
 
-| Preset | Transition | Character |
-|--------|-----------|-----------|
-| `default` | `0.42s cubic-bezier(0.4, 0, 0.2, 1)` | Smooth material-style |
-| `spring` | `0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)` | Slight overshoot |
-| `bounce` | `0.6s cubic-bezier(0.34, 1.56, 0.64, 1)` | Pronounced bounce |
-| `snappy` | `0.22s cubic-bezier(0.4, 0, 0.2, 1)` | Fast and crisp |
-| `slow` | `0.7s cubic-bezier(0.4, 0, 0.2, 1)` | Deliberate, cinematic |
+| Preset    | Transition                                     | Character             |
+| --------- | ---------------------------------------------- | --------------------- |
+| `default` | `0.42s cubic-bezier(0.4, 0, 0.2, 1)`           | Smooth material-style |
+| `spring`  | `0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)` | Slight overshoot      |
+| `bounce`  | `0.6s cubic-bezier(0.34, 1.56, 0.64, 1)`       | Pronounced bounce     |
+| `snappy`  | `0.22s cubic-bezier(0.4, 0, 0.2, 1)`           | Fast and crisp        |
+| `slow`    | `0.7s cubic-bezier(0.4, 0, 0.2, 1)`            | Deliberate, cinematic |
 
 ```tsx
 // Spring — slight overshoot, feels alive
@@ -62,12 +62,7 @@ Use `enterTransition` and `exitTransition` to set different animations for openi
 
 ```tsx
 // Instant open, animated close (command palette style)
-<Sheet
-  ref={ref}
-  edge="top"
-  enterTransition="transform 0s"
-  exitTransition="transform 0.3s ease-in"
->
+<Sheet ref={ref} edge="top" enterTransition="transform 0s" exitTransition="transform 0.3s ease-in">
   ...
 </Sheet>
 ```
@@ -102,11 +97,7 @@ Transitions are resolved with the following priority (highest wins):
 Control the smooth resize animation when content height or width changes (`animateSize={true}`):
 
 ```tsx
-<Sheet
-  ref={ref}
-  edge="bottom"
-  sizeTransition="0.15s ease-out"
->
+<Sheet ref={ref} edge="bottom" sizeTransition="0.15s ease-out">
   ...
 </Sheet>
 ```
@@ -126,10 +117,7 @@ Disable size animation entirely:
 Override the backdrop fade animation (default backdrop only):
 
 ```tsx
-<Sheet
-  ref={ref}
-  backdropTransition="opacity 0.15s ease"
->
+<Sheet ref={ref} backdropTransition="opacity 0.15s ease">
   ...
 </Sheet>
 ```
@@ -141,11 +129,7 @@ Override the backdrop fade animation (default backdrop only):
 `transition` replaces the built-in transition completely with any CSS transition string:
 
 ```tsx
-<Sheet
-  ref={ref}
-  edge="left"
-  transition="transform 0.4s steps(4, end)"
->
+<Sheet ref={ref} edge="left" transition="transform 0.4s steps(4, end)">
   ...
 </Sheet>
 ```

@@ -38,6 +38,7 @@ Add a visible handle pill with `showDragHandle`. This also enables `draggable` a
 ```
 
 The handle is positioned relative to the edge:
+
 - `bottom` → top-center, horizontal pill
 - `top` → bottom-center, horizontal pill
 - `left` → right-center, vertical pill
@@ -73,16 +74,18 @@ To show the handle without enabling drag:
   ref={ref}
   edge="bottom"
   dragHandleComponent={
-    <div style={{
-      position: 'absolute',
-      top: '0.75rem',
-      left: '50%',
-      transform: 'translateX(-50%)',
-      width: '2rem',
-      height: '0.2rem',
-      borderRadius: 999,
-      background: 'white',
-    }} />
+    <div
+      style={{
+        position: 'absolute',
+        top: '0.75rem',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: '2rem',
+        height: '0.2rem',
+        borderRadius: 999,
+        background: 'white',
+      }}
+    />
   }
 >
   ...
@@ -102,14 +105,15 @@ Control when a release triggers dismiss:
   ref={ref}
   edge="bottom"
   draggable
-  dragThreshold={120}          // px dragged (default: 80)
-  dragVelocityThreshold={0.5}  // px/ms velocity (default: 0.3)
+  dragThreshold={120} // px dragged (default: 80)
+  dragVelocityThreshold={0.5} // px/ms velocity (default: 0.3)
 >
   ...
 </Sheet>
 ```
 
 A release triggers dismiss if **either** condition is met:
+
 - `|dragOffset| > dragThreshold`
 - `velocity > dragVelocityThreshold`
 
@@ -130,12 +134,7 @@ Use `snapPoints` to define multiple heights (or widths for left/right edges). Th
 <SnapPointsDemo />
 
 ```tsx
-<Sheet
-  ref={ref}
-  edge="bottom"
-  showDragHandle
-  snapPoints={['200px', '50vh', '90vh']}
->
+<Sheet ref={ref} edge="bottom" showDragHandle snapPoints={['200px', '50vh', '90vh']}>
   <div style={{ padding: '2rem' }}>
     <p>Drag to snap between heights</p>
   </div>
@@ -154,7 +153,7 @@ By default the sheet opens at the largest snap point (last index). Override with
   edge="bottom"
   showDragHandle
   snapPoints={['25vh', '50vh', '90vh']}
-  defaultSnapPoint={1}   // opens at 50vh
+  defaultSnapPoint={1} // opens at 50vh
 >
   ...
 </Sheet>
@@ -234,9 +233,7 @@ Drag up to expand to full player, drag down to collapse to mini player. Drag bel
   defaultSnapPoint={0}
   style={{ background: '#1a1a1a', borderRadius: '1.5rem 1.5rem 0 0' }}
 >
-  <div style={{ padding: '1rem 1.5rem' }}>
-    {/* mini player or full player depending on snap */}
-  </div>
+  <div style={{ padding: '1rem 1.5rem' }}>{/* mini player or full player depending on snap */}</div>
 </Sheet>
 ```
 
@@ -252,8 +249,6 @@ Drag up to expand to full player, drag down to collapse to mini player. Drag bel
   maxWidth="320px"
   style={{ background: 'white', height: '100%' }}
 >
-  <nav style={{ padding: '2rem' }}>
-    {/* navigation items */}
-  </nav>
+  <nav style={{ padding: '2rem' }}>{/* navigation items */}</nav>
 </Sheet>
 ```

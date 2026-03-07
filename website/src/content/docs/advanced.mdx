@@ -38,6 +38,7 @@ When `animateSize={true}` (default), the panel smoothly resizes when its content
 ```
 
 The animated size transition uses:
+
 - `height` (vertical sides: top/bottom)
 - `width` (horizontal sides: left/right)
 
@@ -72,11 +73,7 @@ Use the `className` prop with your CSS framework:
 
 ```tsx
 // Tailwind CSS
-<Sheet
-  ref={ref}
-  edge="right"
-  className="bg-white dark:bg-gray-900 p-6 rounded-l-2xl shadow-2xl"
->
+<Sheet ref={ref} edge="right" className="bg-white dark:bg-gray-900 p-6 rounded-l-2xl shadow-2xl">
   ...
 </Sheet>
 ```
@@ -127,7 +124,9 @@ The `align` prop positions the sheet along the edge:
 **No backdrop** (sheet-only modal):
 
 ```tsx
-<Sheet ref={ref} backdrop={false}>...</Sheet>
+<Sheet ref={ref} backdrop={false}>
+  ...
+</Sheet>
 ```
 
 **Custom backdrop** (like gorhom/bottom-sheet): Use `backdropComponent` to render your own overlay:
@@ -138,7 +137,8 @@ The `align` prop positions the sheet along the edge:
   backdropComponent={(props) => (
     <div
       style={{
-        position: 'absolute', inset: 0,
+        position: 'absolute',
+        inset: 0,
         opacity: props.isExiting ? 0 : props.isEntered ? 1 : 0,
         background: 'rgba(0,0,0,0.5)',
         transition: 'opacity 0.3s',
@@ -186,12 +186,7 @@ For full details — ARIA props, focus restoration, screen reader guidance — s
 Quick example:
 
 ```tsx
-<Sheet
-  ref={ref}
-  edge="bottom"
-  aria-labelledby="sheet-title"
-  aria-describedby="sheet-desc"
->
+<Sheet ref={ref} edge="bottom" aria-labelledby="sheet-title" aria-describedby="sheet-desc">
   <div>
     <h2 id="sheet-title">Sheet Title</h2>
     <p id="sheet-desc">Description of the sheet content.</p>
@@ -228,10 +223,9 @@ const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
 ```tsx
 import dynamic from 'next/dynamic';
 
-const Sheet = dynamic(
-  () => import('react-edge-sheet').then((m) => ({ default: m.Sheet })),
-  { ssr: false }
-);
+const Sheet = dynamic(() => import('react-edge-sheet').then((m) => ({ default: m.Sheet })), {
+  ssr: false,
+});
 ```
 
 ### Remix
@@ -241,9 +235,7 @@ In Remix, use `ClientOnly` from `remix-utils`:
 ```tsx
 import { ClientOnly } from 'remix-utils/client-only';
 
-<ClientOnly>
-  {() => <MySheetComponent />}
-</ClientOnly>
+<ClientOnly>{() => <MySheetComponent />}</ClientOnly>;
 ```
 
 ---
@@ -252,7 +244,7 @@ import { ClientOnly } from 'remix-utils/client-only';
 
 `onOpen` fires **after** the enter animation completes. `onClose` fires **after** the exit animation completes — this is when the component unmounts.
 
-If you need to react to the open/close *intent* (before animation), use `onOpenChange`:
+If you need to react to the open/close _intent_ (before animation), use `onOpenChange`:
 
 ```tsx
 <Sheet

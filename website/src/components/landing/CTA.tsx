@@ -16,7 +16,9 @@ export function CTA() {
           <div className="flex justify-center mb-8">
             <div className="glass-heavy flex items-center gap-3 px-5 py-3 rounded-full border border-[color-mix(in_oklch,var(--glass-border)_50%,transparent)]">
               <span className="text-[var(--foreground-muted)] text-sm select-none">$</span>
-              <code className="font-mono text-sm text-[var(--foreground)]">npm install react-edge-sheet</code>
+              <code className="font-mono text-sm text-[var(--foreground)]">
+                npm install react-edge-sheet
+              </code>
               <CopyButton text="npm install react-edge-sheet" />
             </div>
           </div>
@@ -25,7 +27,10 @@ export function CTA() {
             <Link
               href="/docs/getting-started"
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-white transition-all duration-200 hover:opacity-90"
-              style={{ backgroundImage: 'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))' }}
+              style={{
+                backgroundImage:
+                  'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))',
+              }}
             >
               Read the Docs
             </Link>

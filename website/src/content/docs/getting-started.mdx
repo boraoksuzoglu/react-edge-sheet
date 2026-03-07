@@ -87,10 +87,9 @@ The `Sheet` component uses `createPortal` and `document`, which makes it incompa
 ```tsx
 import dynamic from 'next/dynamic';
 
-const Sheet = dynamic(
-  () => import('react-edge-sheet').then((m) => ({ default: m.Sheet })),
-  { ssr: false }
-);
+const Sheet = dynamic(() => import('react-edge-sheet').then((m) => ({ default: m.Sheet })), {
+  ssr: false,
+});
 ```
 
 Or wrap your component using the Sheet:
@@ -107,9 +106,9 @@ All types are exported from the package root:
 import { Sheet, SheetRef, SheetProps, SheetEdge } from 'react-edge-sheet';
 ```
 
-| Export | Description |
-|---|---|
-| `Sheet` | The main component |
-| `SheetRef` | Type for the imperative ref handle |
-| `SheetProps` | Full props interface |
-| `SheetEdge` | `'top' \| 'bottom' \| 'left' \| 'right'` |
+| Export       | Description                              |
+| ------------ | ---------------------------------------- |
+| `Sheet`      | The main component                       |
+| `SheetRef`   | Type for the imperative ref handle       |
+| `SheetProps` | Full props interface                     |
+| `SheetEdge`  | `'top' \| 'bottom' \| 'left' \| 'right'` |

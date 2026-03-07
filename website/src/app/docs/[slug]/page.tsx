@@ -10,7 +10,12 @@ import { getDocBySlug, getDocSlugs } from '@/lib/mdx';
 import { PropsTable } from '@/components/docs/PropsTable';
 import { DocDemo } from '@/components/docs/DocDemo';
 import { AnimationPresetDemo, AsymmetricTransitionDemo } from '@/components/docs/AnimationDemo';
-import { DragToDismissDemo, SnapPointsDemo, SidebarDragDemo, MusicPlayerDemo } from '@/components/docs/GestureDemo';
+import {
+  DragToDismissDemo,
+  SnapPointsDemo,
+  SidebarDragDemo,
+  MusicPlayerDemo,
+} from '@/components/docs/GestureDemo';
 import { FocusTrapDemo, AriaDemo } from '@/components/docs/KeyboardDemo';
 
 const prettyCodeOptions = {

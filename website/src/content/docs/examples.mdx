@@ -30,7 +30,15 @@ export function BottomSheet() {
           padding: '1.5rem',
         }}
       >
-        <div style={{ width: 36, height: 4, background: '#ccc', borderRadius: 9999, margin: '0 auto 1.25rem' }} />
+        <div
+          style={{
+            width: 36,
+            height: 4,
+            background: '#ccc',
+            borderRadius: 9999,
+            margin: '0 auto 1.25rem',
+          }}
+        />
         <h2>Bottom Sheet</h2>
         <p>Slides up from the bottom edge.</p>
       </Sheet>
@@ -66,7 +74,9 @@ export function RightDrawer() {
         }}
       >
         <h2>Navigation</h2>
-        <nav style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <nav
+          style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
+        >
           <a href="/">Home</a>
           <a href="/docs">Docs</a>
           <a href="/api">API</a>
@@ -102,11 +112,24 @@ export function CommandPalette() {
           padding: '0',
         }}
       >
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', padding: '0.875rem 1.25rem' }}>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.75rem',
+            padding: '0.875rem 1.25rem',
+          }}
+        >
           <input
             autoFocus
             placeholder="Search anything..."
-            style={{ flex: 1, border: 'none', outline: 'none', background: 'transparent', fontSize: '1rem' }}
+            style={{
+              flex: 1,
+              border: 'none',
+              outline: 'none',
+              background: 'transparent',
+              fontSize: '1rem',
+            }}
           />
         </div>
       </Sheet>
@@ -167,7 +190,8 @@ A frosted-glass sheet with a tinted gradient backdrop:
     padding: '1.5rem',
   }}
   backdropStyle={{
-    background: 'linear-gradient(to top, oklch(68% 0.22 290 / 0.2) 0%, oklch(65% 0.20 255 / 0.08) 50%, transparent 100%)',
+    background:
+      'linear-gradient(to top, oklch(68% 0.22 290 / 0.2) 0%, oklch(65% 0.20 255 / 0.08) 50%, transparent 100%)',
   }}
 />
 
@@ -221,14 +245,17 @@ export function DynamicSheet() {
         <h3>Tasks ({items.length})</h3>
 
         {items.map((item, i) => (
-          <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0' }}>
+          <div
+            key={i}
+            style={{ display: 'flex', justifyContent: 'space-between', padding: '0.5rem 0' }}
+          >
             <span>{item}</span>
-            <button onClick={() => setItems(prev => prev.filter((_, j) => j !== i))}>✕</button>
+            <button onClick={() => setItems((prev) => prev.filter((_, j) => j !== i))}>✕</button>
           </div>
         ))}
 
         <button
-          onClick={() => setItems(prev => [...prev, TASKS[prev.length % TASKS.length]])}
+          onClick={() => setItems((prev) => [...prev, TASKS[prev.length % TASKS.length]])}
           disabled={items.length >= TASKS.length}
         >
           + Add Task
@@ -290,7 +317,10 @@ export function CustomPortal() {
 
   return (
     <>
-      <div id="sheet-container" style={{ position: 'relative', height: '400px', overflow: 'hidden' }} />
+      <div
+        id="sheet-container"
+        style={{ position: 'relative', height: '400px', overflow: 'hidden' }}
+      />
       <button onClick={() => ref.current?.open()}>Open in container</button>
 
       {container && (
