@@ -14,7 +14,8 @@ export function Hero() {
           Slide in from{' '}
           <span
             style={{
-              backgroundImage: 'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))',
+              backgroundImage:
+                'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
@@ -25,8 +26,9 @@ export function Hero() {
         </h1>
 
         <p className="text-lg sm:text-xl text-[var(--foreground-muted)] max-w-2xl mx-auto mb-10 animate-[slide-up_0.6s_cubic-bezier(0.4,0,0.2,1)_0.2s_both]">
-          A lightweight, TypeScript-first React component library for sliding sheet panels from
-          top, bottom, left, or right. Zero dependencies. ~4 kB gzipped. Dual controlled + imperative APIs.
+          A lightweight, TypeScript-first React component library for sliding sheet panels from top,
+          bottom, left, or right. Zero dependencies. ~4 kB gzipped. Dual controlled + imperative
+          APIs.
         </p>
 
         {/* Install command */}
@@ -45,10 +47,20 @@ export function Hero() {
           <Link
             href="/docs/getting-started"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-medium text-sm text-white transition-all duration-200 hover:opacity-90 hover:scale-105"
-            style={{ backgroundImage: 'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))' }}
+            style={{
+              backgroundImage:
+                'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))',
+            }}
           >
             Get Started
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+            >
               <path d="M5 12h14M12 5l7 7-7 7" />
             </svg>
           </Link>
@@ -77,27 +89,44 @@ export function Hero() {
               background: 'color-mix(in oklch, var(--glass-surface) 40%, transparent)',
               backdropFilter: 'blur(16px)',
               WebkitBackdropFilter: 'blur(16px)',
-              boxShadow: '0 32px 80px -16px oklch(0% 0 0 / 0.18), 0 0 0 1px color-mix(in oklch, var(--glass-border) 40%, transparent)',
+              boxShadow:
+                '0 32px 80px -16px oklch(0% 0 0 / 0.18), 0 0 0 1px color-mix(in oklch, var(--glass-border) 40%, transparent)',
               overflow: 'hidden',
             }}
           >
             {/* Phone notch */}
-            <div style={{
-              position: 'absolute',
-              top: '12px',
-              left: '50%',
-              transform: 'translateX(-50%)',
-              width: '72px',
-              height: '8px',
-              borderRadius: '9999px',
-              background: 'color-mix(in oklch, var(--glass-border) 60%, transparent)',
-              zIndex: 10,
-            }} />
+            <div
+              style={{
+                position: 'absolute',
+                top: '12px',
+                left: '50%',
+                transform: 'translateX(-50%)',
+                width: '72px',
+                height: '8px',
+                borderRadius: '9999px',
+                background: 'color-mix(in oklch, var(--glass-border) 60%, transparent)',
+                zIndex: 10,
+              }}
+            />
 
             {/* App UI placeholder rows */}
-            <div style={{ padding: '2.5rem 1.25rem 0', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+            <div
+              style={{
+                padding: '2.5rem 1.25rem 0',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '0.75rem',
+              }}
+            >
               {/* Header bar */}
-              <div style={{ height: '10px', borderRadius: '9999px', width: '55%', background: 'color-mix(in oklch, var(--foreground) 20%, transparent)' }} />
+              <div
+                style={{
+                  height: '10px',
+                  borderRadius: '9999px',
+                  width: '55%',
+                  background: 'color-mix(in oklch, var(--foreground) 20%, transparent)',
+                }}
+              />
               {/* Content rows */}
               {[100, 80, 90, 65, 85].map((w, i) => (
                 <div
@@ -111,13 +140,15 @@ export function Hero() {
                 />
               ))}
               {/* Card placeholder */}
-              <div style={{
-                marginTop: '0.5rem',
-                height: '64px',
-                borderRadius: '0.75rem',
-                background: 'color-mix(in oklch, var(--glass-border) 30%, transparent)',
-                border: '1px solid color-mix(in oklch, var(--glass-border) 40%, transparent)',
-              }} />
+              <div
+                style={{
+                  marginTop: '0.5rem',
+                  height: '64px',
+                  borderRadius: '0.75rem',
+                  background: 'color-mix(in oklch, var(--glass-border) 30%, transparent)',
+                  border: '1px solid color-mix(in oklch, var(--glass-border) 40%, transparent)',
+                }}
+              />
               {[70, 50].map((w, i) => (
                 <div
                   key={i}
@@ -152,25 +183,53 @@ export function Hero() {
               }}
             >
               {/* Drag handle */}
-              <div style={{
-                width: '32px',
-                height: '4px',
-                borderRadius: '9999px',
-                background: 'var(--hero-sheet-handle)',
-                margin: '0 auto 1rem',
-              }} />
+              <div
+                style={{
+                  width: '32px',
+                  height: '4px',
+                  borderRadius: '9999px',
+                  background: 'var(--hero-sheet-handle)',
+                  margin: '0 auto 1rem',
+                }}
+              />
               {/* Sheet content rows */}
-              <div style={{ height: '9px', borderRadius: '9999px', width: '60%', background: 'var(--hero-sheet-row-1)', marginBottom: '0.75rem' }} />
-              <div style={{ height: '7px', borderRadius: '9999px', width: '85%', background: 'var(--hero-sheet-row-2)', marginBottom: '0.5rem' }} />
-              <div style={{ height: '7px', borderRadius: '9999px', width: '70%', background: 'var(--hero-sheet-row-2)', marginBottom: '1rem' }} />
+              <div
+                style={{
+                  height: '9px',
+                  borderRadius: '9999px',
+                  width: '60%',
+                  background: 'var(--hero-sheet-row-1)',
+                  marginBottom: '0.75rem',
+                }}
+              />
+              <div
+                style={{
+                  height: '7px',
+                  borderRadius: '9999px',
+                  width: '85%',
+                  background: 'var(--hero-sheet-row-2)',
+                  marginBottom: '0.5rem',
+                }}
+              />
+              <div
+                style={{
+                  height: '7px',
+                  borderRadius: '9999px',
+                  width: '70%',
+                  background: 'var(--hero-sheet-row-2)',
+                  marginBottom: '1rem',
+                }}
+              />
               {/* Action button */}
-              <div style={{
-                height: '32px',
-                borderRadius: '0.5rem',
-                width: '100%',
-                background: 'var(--hero-sheet-btn-bg)',
-                border: '1px solid var(--hero-sheet-btn-border)',
-              }} />
+              <div
+                style={{
+                  height: '32px',
+                  borderRadius: '0.5rem',
+                  width: '100%',
+                  background: 'var(--hero-sheet-btn-bg)',
+                  border: '1px solid var(--hero-sheet-btn-border)',
+                }}
+              />
             </div>
           </div>
         </div>

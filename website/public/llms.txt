@@ -9,14 +9,14 @@ Install: `npm install react-edge-sheet` (requires React 17+)
 
 ## Documentation
 
-- [Getting Started](https://edge-sheet.borao.dev/docs/getting-started): Installation and first sheet
-- [API Reference](https://edge-sheet.borao.dev/docs/api): Full props, SheetRef methods, TypeScript types
-- [Examples](https://edge-sheet.borao.dev/docs/examples): Bottom sheets, drawers, command palette, glassmorphism, snap points
-- [Advanced](https://edge-sheet.borao.dev/docs/advanced): Animation internals, SSR/Next.js patterns, custom styling
-- [Keyboard & Focus](https://edge-sheet.borao.dev/docs/keyboard): Focus trap, ARIA props, screen reader guidance
-- [Animations](https://edge-sheet.borao.dev/docs/animation): Presets, asymmetric enter/exit, transition overrides
-- [Gestures](https://edge-sheet.borao.dev/docs/gestures): Drag-to-dismiss, snap points, drag thresholds, custom drag handle
-- [Changelog](https://edge-sheet.borao.dev/docs/changelog): Release history
+- [Getting Started](https://react-sheet.borao.dev/docs/getting-started): Installation and first sheet
+- [API Reference](https://react-sheet.borao.dev/docs/api): Full props, SheetRef methods, TypeScript types
+- [Examples](https://react-sheet.borao.dev/docs/examples): Bottom sheets, drawers, command palette, glassmorphism, snap points
+- [Advanced](https://react-sheet.borao.dev/docs/advanced): Animation internals, SSR/Next.js patterns, custom styling
+- [Keyboard & Focus](https://react-sheet.borao.dev/docs/keyboard): Focus trap, ARIA props, screen reader guidance
+- [Animations](https://react-sheet.borao.dev/docs/animation): Presets, asymmetric enter/exit, transition overrides
+- [Gestures](https://react-sheet.borao.dev/docs/gestures): Drag-to-dismiss, snap points, drag thresholds, custom drag handle
+- [Changelog](https://react-sheet.borao.dev/docs/changelog): Release history
 
 ## Package
 
@@ -25,4 +25,4 @@ Install: `npm install react-edge-sheet` (requires React 17+)
 
 ## Optional
 
-- [Full docs for LLMs](https://edge-sheet.borao.dev/llms-full.txt): Complete documentation as a single plain-text file
+- [Full docs for LLMs](https://react-sheet.borao.dev/llms-full.txt): Complete documentation as a single plain-text file

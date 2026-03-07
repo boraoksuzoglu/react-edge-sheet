@@ -27,7 +27,10 @@ export function Footer() {
           <a href="/llms.txt" className="hover:text-[var(--foreground)] transition-colors">
             llms.txt
           </a>
-          <Link href="/docs/getting-started" className="hover:text-[var(--foreground)] transition-colors">
+          <Link
+            href="/docs/getting-started"
+            className="hover:text-[var(--foreground)] transition-colors"
+          >
             Docs
           </Link>
         </div>

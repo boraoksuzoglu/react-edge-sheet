@@ -21,7 +21,7 @@
     "type": "git",
     "url": "https://github.com/boraoksuzoglu/react-edge-sheet"
   },
-  "homepage": "https://edge-sheet.borao.dev",
+  "homepage": "https://react-sheet.borao.dev",
   "bugs": {
     "url": "https://github.com/boraoksuzoglu/react-edge-sheet/issues"
   },
@@ -49,8 +49,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src/ website/src/",
     "lint:fix": "eslint src/ website/src/ --fix",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\" \"website/src/**/*.{ts,tsx,md,mdx}\" \"*.{json,md}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\" \"website/src/**/*.{ts,tsx,md,mdx}\" \"*.{json,md}\"",
     "test": "vitest",
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",

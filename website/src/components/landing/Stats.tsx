@@ -15,7 +15,8 @@ export function Stats() {
               <div
                 className="text-3xl sm:text-4xl font-bold mb-1 tracking-tight"
                 style={{
-                  backgroundImage: 'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))',
+                  backgroundImage:
+                    'linear-gradient(135deg, var(--color-atmos-purple), var(--color-atmos-blue))',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',

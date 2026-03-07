@@ -101,7 +101,7 @@ const [open, setOpen] = useState(false);
 
 <Sheet edge="right" open={open} onOpenChange={setOpen}>
   ...
-</Sheet>
+</Sheet>;
 ```
 
 ## Imperative API
@@ -137,31 +137,31 @@ const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
 
 ## Key Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `edge` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'` | Which edge the sheet slides from |
-| `open` | `boolean` | — | Controlled open state |
-| `onOpenChange` | `(open: boolean) => void` | — | Called when open state should change |
-| `draggable` | `boolean` | `false` | Enable drag-to-dismiss |
-| `showDragHandle` | `boolean` | `false` | Show drag handle pill (also enables draggable) |
-| `snapPoints` | `string[]` | — | Snap heights/widths e.g. `['25vh','50vh','90vh']` |
-| `defaultSnapPoint` | `number` | last index | Initial snap point index |
-| `animationPreset` | `AnimationPreset` | `'default'` | Built-in transition curve |
-| `maxSize` | `string` | `'90vh'`/`'90vw'` | Max panel size |
-| `animateSize` | `boolean` | `true` | Animate content height/width changes |
-| `backdrop` | `boolean` | `true` | Show/hide backdrop |
-| `closeOnBackdropClick` | `boolean` | `true` | Close when backdrop is clicked |
-| `portal` | `HTMLElement \| null` | `document.body` | Portal target (`null` = inline) |
-| `aria-label` | `string` | — | Accessible label for the dialog |
+| Prop                   | Type                                     | Default           | Description                                       |
+| ---------------------- | ---------------------------------------- | ----------------- | ------------------------------------------------- |
+| `edge`                 | `'top' \| 'bottom' \| 'left' \| 'right'` | `'bottom'`        | Which edge the sheet slides from                  |
+| `open`                 | `boolean`                                | —                 | Controlled open state                             |
+| `onOpenChange`         | `(open: boolean) => void`                | —                 | Called when open state should change              |
+| `draggable`            | `boolean`                                | `false`           | Enable drag-to-dismiss                            |
+| `showDragHandle`       | `boolean`                                | `false`           | Show drag handle pill (also enables draggable)    |
+| `snapPoints`           | `string[]`                               | —                 | Snap heights/widths e.g. `['25vh','50vh','90vh']` |
+| `defaultSnapPoint`     | `number`                                 | last index        | Initial snap point index                          |
+| `animationPreset`      | `AnimationPreset`                        | `'default'`       | Built-in transition curve                         |
+| `maxSize`              | `string`                                 | `'90vh'`/`'90vw'` | Max panel size                                    |
+| `animateSize`          | `boolean`                                | `true`            | Animate content height/width changes              |
+| `backdrop`             | `boolean`                                | `true`            | Show/hide backdrop                                |
+| `closeOnBackdropClick` | `boolean`                                | `true`            | Close when backdrop is clicked                    |
+| `portal`               | `HTMLElement \| null`                    | `document.body`   | Portal target (`null` = inline)                   |
+| `aria-label`           | `string`                                 | —                 | Accessible label for the dialog                   |
 
-Full API reference and live demos: **https://edge-sheet.borao.dev**
+Full API reference and live demos: **https://react-sheet.borao.dev**
 
 ## LLM-Friendly Docs
 
 Machine-readable documentation for AI assistants and code search tools:
 
-- **[llms.txt](https://edge-sheet.borao.dev/llms.txt)** — Lightweight index with links to all doc sections
-- **[llms-full.txt](https://edge-sheet.borao.dev/llms-full.txt)** — Complete documentation in a single plain-text file
+- **[llms.txt](https://react-sheet.borao.dev/llms.txt)** — Lightweight index with links to all doc sections
+- **[llms-full.txt](https://react-sheet.borao.dev/llms-full.txt)** — Complete documentation in a single plain-text file
 
 ## License
 

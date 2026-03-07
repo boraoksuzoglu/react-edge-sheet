@@ -39,18 +39,14 @@ To override which element gets focus, use `onOpen`:
 ```tsx
 const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-<Sheet
-  ref={ref}
-  edge="bottom"
-  onOpen={() => closeButtonRef.current?.focus()}
->
+<Sheet ref={ref} edge="bottom" onOpen={() => closeButtonRef.current?.focus()}>
   <div style={{ padding: '2rem' }}>
     <button ref={closeButtonRef} onClick={() => ref.current?.close()}>
       Close
     </button>
     <p>Content here</p>
   </div>
-</Sheet>
+</Sheet>;
 ```
 
 ---
@@ -74,11 +70,7 @@ The dialog element always has `role="dialog"` and `aria-modal="true"`. To make i
 Point to the heading inside the sheet:
 
 ```tsx
-<Sheet
-  ref={ref}
-  edge="bottom"
-  aria-labelledby="confirm-title"
->
+<Sheet ref={ref} edge="bottom" aria-labelledby="confirm-title">
   <div style={{ padding: '2rem' }}>
     <h2 id="confirm-title">Confirm deletion</h2>
     <p>This action cannot be undone.</p>
@@ -93,17 +85,10 @@ Point to the heading inside the sheet:
 Add a description for complex dialogs:
 
 ```tsx
-<Sheet
-  ref={ref}
-  edge="bottom"
-  aria-labelledby="settings-title"
-  aria-describedby="settings-desc"
->
+<Sheet ref={ref} edge="bottom" aria-labelledby="settings-title" aria-describedby="settings-desc">
   <div style={{ padding: '2rem' }}>
     <h2 id="settings-title">Notification Settings</h2>
-    <p id="settings-desc">
-      Choose how you want to receive notifications.
-    </p>
+    <p id="settings-desc">Choose how you want to receive notifications.</p>
     {/* form controls */}
   </div>
 </Sheet>
@@ -161,9 +146,7 @@ export function DeleteConfirmSheet({ onConfirm }: { onConfirm: () => void }) {
         }}
       >
         <h2 id="delete-title">Delete item?</h2>
-        <p id="delete-desc">
-          This will permanently delete the item. This action cannot be undone.
-        </p>
+        <p id="delete-desc">This will permanently delete the item. This action cannot be undone.</p>
         <div style={{ display: 'flex', gap: '1rem', marginTop: '1.5rem' }}>
           <button onClick={() => ref.current?.close()}>Cancel</button>
           <button

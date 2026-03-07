@@ -68,12 +68,12 @@ Callbacks fired **after the animation completes**, not when the state changes.
 
 Access these via `ref.current` when using the imperative API.
 
-| Method | Signature | Description |
-|---|---|---|
-| `open` | `() => void` | Opens the sheet |
-| `close` | `() => void` | Closes the sheet with exit animation |
-| `toggle` | `() => void` | Toggles open/closed |
-| `isOpen` | `boolean` | Current open state |
+| Method   | Signature    | Description                          |
+| -------- | ------------ | ------------------------------------ |
+| `open`   | `() => void` | Opens the sheet                      |
+| `close`  | `() => void` | Closes the sheet with exit animation |
+| `toggle` | `() => void` | Toggles open/closed                  |
+| `isOpen` | `boolean`    | Current open state                   |
 
 ```tsx
 const ref = useRef<SheetRef>(null);
@@ -146,7 +146,7 @@ import { Sheet, SheetBackdrop } from 'react-edge-sheet';
   )}
 >
   ...
-</Sheet>
+</Sheet>;
 ```
 
 ### `useSheet`
