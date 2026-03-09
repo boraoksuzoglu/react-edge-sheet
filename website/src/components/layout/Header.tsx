@@ -10,6 +10,7 @@ const navLinks = [
   { href: '/docs/getting-started', label: 'Docs' },
   { href: '/docs/api', label: 'API' },
   { href: '/docs/examples', label: 'Examples' },
+  { href: '/playground', label: 'Playground' },
   { href: 'https://github.com/boraoksuzoglu/react-edge-sheet', label: 'GitHub', external: true },
 ];
 
