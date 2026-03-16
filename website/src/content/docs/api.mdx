@@ -306,5 +306,11 @@ interface SheetProps {
 
   /** Called when the active snap point changes */
   onSnapChange?: (index: number) => void;
+
+  /**
+   * Body padding during scroll lock. true = scrollbar width (default), false = none,
+   * string = custom value (e.g. "0", "1rem").
+   */
+  scrollLockPadding?: boolean | string;
 }
 ```

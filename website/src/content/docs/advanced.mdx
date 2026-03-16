@@ -99,7 +99,9 @@ The `align` prop positions the sheet along the edge:
 
 ### Limit panel size
 
-`maxSize` sets the `max-height` (for top/bottom) or `max-width` (for left/right):
+`maxSize`, `maxHeight`, and `maxWidth` are optional. When omitted, no max constraint is applied — the panel size is determined by content and parent layout.
+
+Use `maxSize` for shorthand (max-height for top/bottom, max-width for left/right):
 
 ```tsx
 <Sheet ref={ref} edge="bottom" maxSize="60vh">
@@ -160,6 +162,15 @@ Use `minSize`, `minHeight`, `minWidth` for minimum dimensions (mirrors the max A
 <Sheet ref={ref} edge="right" minWidth="280px" maxWidth="400px">...</Sheet>
 ```
 
+### Scroll lock padding
+
+When the sheet is open, the body scroll is locked. By default, `padding-right` equal to the scrollbar width is applied to avoid layout shift. Control this with `scrollLockPadding`:
+
+```tsx
+<Sheet scrollLockPadding={false}>...</Sheet>   // no padding (accept layout shift)
+<Sheet scrollLockPadding="1rem">...</Sheet>    // custom value
+```
+
 ### Transition overrides
 
 Override the built-in transitions via props:
@@ -173,6 +184,18 @@ Override the built-in transitions via props:
 >
   ...
 </Sheet>
+```
+
+### Scroll lock padding
+
+When the sheet is open, body scroll is locked. By default, `padding-right` is set to the scrollbar width to prevent layout shift. Control this via `scrollLockPadding`:
+
+```tsx
+// Disable padding (may cause layout shift when scrollbar hides)
+<Sheet ref={ref} scrollLockPadding={false}>...</Sheet>
+
+// Custom padding value
+<Sheet ref={ref} scrollLockPadding="1rem">...</Sheet>
 ```
 
 ---

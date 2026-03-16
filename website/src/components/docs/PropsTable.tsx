@@ -77,20 +77,23 @@ const props = [
   {
     name: 'maxSize',
     type: 'string',
-    default: "'90vh' / '90vw'",
-    description: 'Shorthand: max-height for top/bottom, max-width for left/right.',
+    default: '—',
+    description:
+      'Shorthand: max-height for top/bottom, max-width for left/right. Optional — no default when omitted.',
   },
   {
     name: 'maxHeight',
     type: 'string',
     default: '—',
-    description: 'Explicit max-height of the panel. Overrides maxSize for height.',
+    description:
+      'Explicit max-height of the panel. Optional — no default when omitted. Overrides maxSize for height.',
   },
   {
     name: 'maxWidth',
     type: 'string',
     default: '—',
-    description: 'Explicit max-width of the panel. Overrides maxSize for width.',
+    description:
+      'Explicit max-width of the panel. Optional — no default when omitted. Overrides maxSize for width.',
   },
   {
     name: 'minSize',
@@ -250,6 +253,13 @@ const props = [
     type: '(index: number) => void',
     default: '—',
     description: 'Called when the active snap point changes.',
+  },
+  {
+    name: 'scrollLockPadding',
+    type: 'boolean | string',
+    default: 'true',
+    description:
+      'Body padding during scroll lock. true = scrollbar width, false = none, string = custom (e.g. "0", "1rem").',
   },
 ];
 

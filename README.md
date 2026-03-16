@@ -147,7 +147,8 @@ const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
 | `snapPoints`           | `string[]`                               | —                 | Snap heights/widths e.g. `['25vh','50vh','90vh']` |
 | `defaultSnapPoint`     | `number`                                 | last index        | Initial snap point index                          |
 | `animationPreset`      | `AnimationPreset`                        | `'default'`       | Built-in transition curve                         |
-| `maxSize`              | `string`                                 | `'90vh'`/`'90vw'` | Max panel size                                    |
+| `maxSize`              | `string`                                 | —                 | Max panel size (optional; no default when omitted) |
+| `scrollLockPadding`    | `boolean \| string`                       | `true`            | Body padding during scroll lock (true/false/custom) |
 | `animateSize`          | `boolean`                                | `true`            | Animate content height/width changes              |
 | `backdrop`             | `boolean`                                | `true`            | Show/hide backdrop                                |
 | `closeOnBackdropClick` | `boolean`                                | `true`            | Close when backdrop is clicked                    |
