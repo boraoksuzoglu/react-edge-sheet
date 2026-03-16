@@ -5,18 +5,29 @@ let lockCount = 0;
 let savedOverflow = '';
 let savedPaddingRight = '';
 
-export function useScrollLock(enabled: boolean): void {
+function resolvePaddingRight(padding: boolean | string | undefined): string | null {
+  if (padding === false) return null;
+  if (typeof padding === 'string') return padding;
+  // true or undefined: use scrollbar width
+  const scrollbarWidth = typeof window !== 'undefined'
+    ? window.innerWidth - document.documentElement.clientWidth
+    : 0;
+  return scrollbarWidth > 0 ? `${scrollbarWidth}px` : null;
+}
+
+export function useScrollLock(enabled: boolean, padding?: boolean | string): void {
   useEffect(() => {
     if (!enabled) return;
+
+    const paddingRight = resolvePaddingRight(padding);
 
     if (lockCount === 0) {
       const body = document.body;
       savedOverflow = body.style.overflow;
       savedPaddingRight = body.style.paddingRight;
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       body.style.overflow = 'hidden';
-      if (scrollbarWidth > 0) {
-        body.style.paddingRight = `${scrollbarWidth}px`;
+      if (paddingRight !== null) {
+        body.style.paddingRight = paddingRight;
       }
     }
     lockCount += 1;
@@ -29,5 +40,5 @@ export function useScrollLock(enabled: boolean): void {
         body.style.paddingRight = savedPaddingRight;
       }
     };
-  }, [enabled]);
+  }, [enabled, padding]);
 }

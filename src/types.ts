@@ -108,4 +108,11 @@ export interface SheetProps {
   defaultSnapPoint?: number;
   /** Called when snap point changes. */
   onSnapChange?: (index: number) => void;
+  /**
+   * When scroll is locked, body gets padding-right to prevent layout shift from scrollbar.
+   * - true (default): use scrollbar width
+   * - false: no padding
+   * - string: custom value (e.g. "0", "1rem")
+   */
+  scrollLockPadding?: boolean | string;
 }
