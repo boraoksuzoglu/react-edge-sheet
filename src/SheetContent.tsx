@@ -28,6 +28,8 @@ interface SheetContentProps {
   sizeTransition?: string;
   style?: React.CSSProperties;
   className?: string;
+  contentClassName?: string;
+  contentStyle?: React.CSSProperties;
   isVisible: boolean;
   onTransitionEnd: (e: React.TransitionEvent<HTMLDivElement>) => void;
   containerRef?: React.Ref<HTMLDivElement>;
@@ -64,6 +66,8 @@ export function SheetContent({
   sizeTransition: sizeTransitionOverride,
   style,
   className,
+  contentClassName,
+  contentStyle,
   isVisible,
   onTransitionEnd,
   containerRef,
@@ -248,10 +252,14 @@ export function SheetContent({
         ))}
       {useAnimateSize ? (
         <div style={innerWrapperStyle}>
-          <div ref={contentRef}>{children}</div>
+          <div ref={contentRef} className={contentClassName} style={contentStyle}>
+            {children}
+          </div>
         </div>
       ) : (
-        <div ref={contentRef}>{children}</div>
+        <div ref={contentRef} className={contentClassName} style={contentStyle}>
+          {children}
+        </div>
       )}
     </div>
   );

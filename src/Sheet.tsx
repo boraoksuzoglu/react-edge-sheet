@@ -41,6 +41,8 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
     minHeight,
     style,
     className,
+    contentClassName,
+    contentStyle,
     backdropStyle,
     backdropClassName,
     transition,
@@ -188,6 +190,8 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
           sizeTransition={sizeTransition}
           style={style}
           className={className}
+          contentClassName={contentClassName}
+          contentStyle={contentStyle}
           isVisible={isVisible}
           onTransitionEnd={handleTransitionEnd}
           containerRef={containerRef}

@@ -68,6 +68,10 @@ export interface SheetProps {
   minWidth?: string;
   style?: React.CSSProperties;
   className?: string;
+  /** CSS class applied to the inner content wrapper (the div that wraps children). */
+  contentClassName?: string;
+  /** Inline styles for the inner content wrapper. */
+  contentStyle?: React.CSSProperties;
   backdropStyle?: React.CSSProperties;
   backdropClassName?: string;
   /** Override panel slide transition (e.g. "transform 0.3s ease"). Default uses built-in timing. */
