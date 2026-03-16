@@ -1,8 +1,8 @@
 const stats = [
-  { value: '~9KB', label: 'Bundle size (minified)' },
-  { value: '0', label: 'Runtime dependencies' },
-  { value: 'React 17+', label: 'Peer compatibility' },
-  { value: 'SSR Safe', label: 'Next.js & Remix ready' },
+  { value: '~4KB', label: 'Bundle size (brotli)' },
+  { value: '0', label: 'Dependencies' },
+  { value: 'React 17+', label: 'Peer' },
+  { value: 'TypeScript', label: 'Fully typed' },
 ];
 
 export function Stats() {
