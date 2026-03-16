@@ -9,9 +9,8 @@ function resolvePaddingRight(padding: boolean | string | undefined): string | nu
   if (padding === false) return null;
   if (typeof padding === 'string') return padding;
   // true or undefined: use scrollbar width
-  const scrollbarWidth = typeof window !== 'undefined'
-    ? window.innerWidth - document.documentElement.clientWidth
-    : 0;
+  const scrollbarWidth =
+    typeof window !== 'undefined' ? window.innerWidth - document.documentElement.clientWidth : 0;
   return scrollbarWidth > 0 ? `${scrollbarWidth}px` : null;
 }
 
