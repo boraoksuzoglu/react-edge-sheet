@@ -136,11 +136,10 @@ export function SheetContent({
   }, [animateSize, isVisible, vertical, snapSize]);
 
   // Resolve size constraints:
-  // - vertical (top/bottom): maxHeight clamps content height; maxWidth caps width (default: 100%)
-  // - horizontal (left/right): maxWidth clamps drawer width; maxHeight caps height (default: 100%)
-  const resolvedMaxHeight = vertical ? (maxHeight ?? maxSize ?? '90vh') : maxHeight;
-
-  const resolvedMaxWidth = !vertical ? (maxWidth ?? maxSize ?? '90vw') : maxWidth;
+  // - vertical (top/bottom): maxHeight clamps content height; maxWidth caps width (optional)
+  // - horizontal (left/right): maxWidth clamps drawer width; maxHeight caps height (optional)
+  const resolvedMaxHeight = vertical ? (maxHeight ?? maxSize) : maxHeight;
+  const resolvedMaxWidth = !vertical ? (maxWidth ?? maxSize) : maxWidth;
 
   const resolvedMinHeight = vertical ? (minHeight ?? minSize) : minHeight;
   const resolvedMinWidth = !vertical ? (minWidth ?? minSize) : minWidth;
