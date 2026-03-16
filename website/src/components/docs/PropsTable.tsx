@@ -144,6 +144,18 @@ const props = [
     description: 'CSS class applied to the sheet panel element.',
   },
   {
+    name: 'contentClassName',
+    type: 'string',
+    default: '—',
+    description: 'CSS class applied to the inner content wrapper (the div that wraps children).',
+  },
+  {
+    name: 'contentStyle',
+    type: 'React.CSSProperties',
+    default: '—',
+    description: 'Inline styles for the inner content wrapper.',
+  },
+  {
     name: 'backdropStyle',
     type: 'React.CSSProperties',
     default: '—',

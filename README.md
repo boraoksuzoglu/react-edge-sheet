@@ -150,6 +150,8 @@ const MyDrawer = dynamic(() => import('./MyDrawer'), { ssr: false });
 | `defaultSnapPoint`     | `number`                                 | last index      | Initial snap point index                            |
 | `animationPreset`      | `AnimationPreset`                        | `'default'`     | Built-in transition curve                           |
 | `maxSize`              | `string`                                 | —               | Max panel size (optional; no default when omitted)  |
+| `contentClassName`     | `string`                                 | —               | CSS class for the inner content wrapper             |
+| `contentStyle`         | `React.CSSProperties`                    | —               | Inline styles for the inner content wrapper         |
 | `scrollLockPadding`    | `boolean \| string`                      | `true`          | Body padding during scroll lock (true/false/custom) |
 | `animateSize`          | `boolean`                                | `true`          | Animate content height/width changes                |
 | `backdrop`             | `boolean`                                | `true`          | Show/hide backdrop                                  |

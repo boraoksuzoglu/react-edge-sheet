@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.3.0] — 2026-03-16
+
+### Added
+
+- `contentClassName` and `contentStyle` props: style the inner content wrapper (the div that wraps children, used for ResizeObserver). Useful for overflow, scroll, padding, and other layout tweaks.
+
 ## [0.2.0] — 2026-03-13
 
 ### Added

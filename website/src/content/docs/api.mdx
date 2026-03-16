@@ -277,6 +277,12 @@ interface SheetProps {
   /** CSS class for the sheet panel */
   className?: string;
 
+  /** CSS class for the inner content wrapper (the div that wraps children) */
+  contentClassName?: string;
+
+  /** Inline styles for the inner content wrapper */
+  contentStyle?: React.CSSProperties;
+
   /** Enable drag-to-dismiss gesture. Default: false (true when showDragHandle is true) */
   draggable?: boolean;
 

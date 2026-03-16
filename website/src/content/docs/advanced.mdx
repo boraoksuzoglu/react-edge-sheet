@@ -78,6 +78,16 @@ Use the `className` prop with your CSS framework:
 </Sheet>
 ```
 
+### Content wrapper (contentClassName, contentStyle)
+
+The sheet wraps your children in an inner div used for measuring (ResizeObserver). Use `contentClassName` and `contentStyle` to style this wrapper — e.g. for overflow, scroll, or padding:
+
+```tsx
+<Sheet ref={ref} contentClassName="overflow-y-auto p-4" contentStyle={{ maxHeight: '70vh' }}>
+  ...
+</Sheet>
+```
+
 ### Position alignment
 
 The `align` prop positions the sheet along the edge:
