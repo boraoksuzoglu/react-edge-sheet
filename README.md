@@ -8,6 +8,8 @@ A lightweight, zero-dependency React component for sliding panels from any scree
 
 **~4 kB gzipped. No framer-motion, no emotion, no lodash. Just React.**
 
+![Demo](assets/MusicPlayerDemo.gif)
+
 ## Features
 
 - Slides from any edge: `top`, `bottom`, `left`, `right`
