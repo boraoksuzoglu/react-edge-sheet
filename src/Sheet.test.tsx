@@ -92,6 +92,20 @@ describe('Sheet', () => {
     expect(onOpenChange).toHaveBeenLastCalledWith(false);
   });
 
+  it('does not lock body scroll when scrollLock is false', async () => {
+    document.body.style.overflow = '';
+    const ref = createRef<SheetRef>();
+    render(
+      <Sheet ref={ref} edge="bottom" scrollLock={false}>
+        <p>No scroll lock</p>
+      </Sheet>
+    );
+    await act(async () => {
+      ref.current?.open();
+    });
+    expect(document.body.style.overflow).toBe('');
+  });
+
   it('renders into document.body by default (portal)', async () => {
     const ref = createRef<SheetRef>();
     const { container } = render(

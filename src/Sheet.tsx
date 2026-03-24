@@ -64,6 +64,7 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
     snapPoints,
     defaultSnapPoint,
     onSnapChange,
+    scrollLock = true,
     scrollLockPadding = true,
   },
   ref
@@ -74,7 +75,7 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEscapeKey(isVisible, closeFn);
-  useScrollLock(isVisible, scrollLockPadding);
+  useScrollLock(isVisible && scrollLock, scrollLockPadding);
   useFocusTrap(containerRef, isVisible, isEntered);
 
   // Snap state

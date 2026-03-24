@@ -1,6 +1,6 @@
 {
   "name": "react-edge-sheet",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "A lightweight React component for sliding panels from any screen edge",
   "license": "MIT",
   "author": "Bora Öksüzoglu <bora@borao.dev>",

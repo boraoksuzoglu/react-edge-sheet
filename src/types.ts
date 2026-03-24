@@ -113,7 +113,13 @@ export interface SheetProps {
   /** Called when snap point changes. */
   onSnapChange?: (index: number) => void;
   /**
+   * When true (default), body scroll is locked while the sheet is open (`overflow: hidden`).
+   * Set to false to keep the page scrollable behind the sheet.
+   */
+  scrollLock?: boolean;
+  /**
    * When scroll is locked, body gets padding-right to prevent layout shift from scrollbar.
+   * Ignored when `scrollLock` is false.
    * - true (default): use scrollbar width
    * - false: no padding
    * - string: custom value (e.g. "0", "1rem")

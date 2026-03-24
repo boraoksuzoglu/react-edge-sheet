@@ -267,11 +267,18 @@ const props = [
     description: 'Called when the active snap point changes.',
   },
   {
+    name: 'scrollLock',
+    type: 'boolean',
+    default: 'true',
+    description:
+      'Lock body scroll while open (overflow: hidden). false keeps the page scrollable behind the sheet.',
+  },
+  {
     name: 'scrollLockPadding',
     type: 'boolean | string',
     default: 'true',
     description:
-      'Body padding during scroll lock. true = scrollbar width, false = none, string = custom (e.g. "0", "1rem").',
+      'Body padding during scroll lock (ignored when scrollLock is false). true = scrollbar width, false = none, string = custom.',
   },
 ];
 
