@@ -314,8 +314,13 @@ interface SheetProps {
   onSnapChange?: (index: number) => void;
 
   /**
-   * Body padding during scroll lock. true = scrollbar width (default), false = none,
-   * string = custom value (e.g. "0", "1rem").
+   * Lock body scroll while the sheet is open. Default true. false keeps the page scrollable.
+   */
+  scrollLock?: boolean;
+
+  /**
+   * Body padding during scroll lock (ignored when scrollLock is false).
+   * true = scrollbar width (default), false = none, string = custom (e.g. "0", "1rem").
    */
   scrollLockPadding?: boolean | string;
 }

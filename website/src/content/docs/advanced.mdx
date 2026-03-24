@@ -172,14 +172,27 @@ Use `minSize`, `minHeight`, `minWidth` for minimum dimensions (mirrors the max A
 <Sheet ref={ref} edge="right" minWidth="280px" maxWidth="400px">...</Sheet>
 ```
 
-### Scroll lock padding
+### Scroll lock
 
-When the sheet is open, the body scroll is locked. By default, `padding-right` equal to the scrollbar width is applied to avoid layout shift. Control this with `scrollLockPadding`:
+By default, opening the sheet locks body scroll (`overflow: hidden`). Disable this entirely with `scrollLock={false}` so the page stays scrollable behind the sheet:
 
 ```tsx
-<Sheet scrollLockPadding={false}>...</Sheet>   // no padding (accept layout shift)
-<Sheet scrollLockPadding="1rem">...</Sheet>    // custom value
+<Sheet ref={ref} scrollLock={false}>
+  ...
+</Sheet>
 ```
+
+When scroll lock is enabled, `padding-right` is applied by default to match the scrollbar width and avoid layout shift. Control padding only (not the lock itself) with `scrollLockPadding`:
+
+```tsx
+// Lock scroll but skip padding (may cause layout shift when scrollbar hides)
+<Sheet ref={ref} scrollLockPadding={false}>...</Sheet>
+
+// Custom padding while locked
+<Sheet ref={ref} scrollLockPadding="1rem">...</Sheet>
+```
+
+`scrollLockPadding` has no effect when `scrollLock` is `false`.
 
 ### Transition overrides
 
@@ -194,18 +207,6 @@ Override the built-in transitions via props:
 >
   ...
 </Sheet>
-```
-
-### Scroll lock padding
-
-When the sheet is open, body scroll is locked. By default, `padding-right` is set to the scrollbar width to prevent layout shift. Control this via `scrollLockPadding`:
-
-```tsx
-// Disable padding (may cause layout shift when scrollbar hides)
-<Sheet ref={ref} scrollLockPadding={false}>...</Sheet>
-
-// Custom padding value
-<Sheet ref={ref} scrollLockPadding="1rem">...</Sheet>
 ```
 
 ---

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.4.0] — 2026-03-17
+
+### Added
+
+- `scrollLock` prop: when `false`, disables body scroll lock entirely so the page stays scrollable while the sheet is open. Default remains `true`. `scrollLockPadding` only applies when `scrollLock` is `true`.
+
 ## [0.3.0] — 2026-03-16
 
 ### Added
