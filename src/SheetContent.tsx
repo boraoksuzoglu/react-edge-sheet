@@ -28,6 +28,8 @@ interface SheetContentProps {
   sizeTransition?: string;
   style?: React.CSSProperties;
   className?: string;
+  innerWrapperClassName?: string;
+  innerWrapperStyle?: React.CSSProperties;
   contentClassName?: string;
   contentStyle?: React.CSSProperties;
   isVisible: boolean;
@@ -66,6 +68,8 @@ export function SheetContent({
   sizeTransition: sizeTransitionOverride,
   style,
   className,
+  innerWrapperClassName,
+  innerWrapperStyle,
   contentClassName,
   contentStyle,
   isVisible,
@@ -164,7 +168,7 @@ export function SheetContent({
     ...style,
   };
 
-  const innerWrapperStyle: React.CSSProperties =
+  const innerWrapperBaseStyle: React.CSSProperties =
     animateSize && !snapSize
       ? {
           overflow: 'hidden',
@@ -251,7 +255,10 @@ export function SheetContent({
           <div style={{ ...handleStyle, ...dragHandleStyle }} className={dragHandleClassName} />
         ))}
       {useAnimateSize ? (
-        <div style={innerWrapperStyle}>
+        <div
+          style={{ ...innerWrapperBaseStyle, ...innerWrapperStyle }}
+          className={innerWrapperClassName}
+        >
           <div ref={contentRef} className={contentClassName} style={contentStyle}>
             {children}
           </div>

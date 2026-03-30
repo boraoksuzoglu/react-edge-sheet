@@ -72,7 +72,21 @@ const props = [
     name: 'zIndex',
     type: 'number',
     default: '200',
-    description: 'CSS z-index of the sheet container.',
+    description: 'CSS z-index of the full-screen overlay (merged into container styles).',
+  },
+  {
+    name: 'containerClassName',
+    type: 'string',
+    default: '—',
+    description:
+      'CSS class for the full-screen overlay (portal root: wraps backdrop + panel). Not the panel.',
+  },
+  {
+    name: 'containerStyle',
+    type: 'React.CSSProperties',
+    default: '—',
+    description:
+      'Inline styles merged onto the overlay container (fixed, inset, flex, zIndex). Overrides may change behavior.',
   },
   {
     name: 'maxSize',
@@ -142,6 +156,20 @@ const props = [
     type: 'string',
     default: '—',
     description: 'CSS class applied to the sheet panel element.',
+  },
+  {
+    name: 'innerWrapperClassName',
+    type: 'string',
+    default: '—',
+    description:
+      'CSS class for the animate-size inner wrapper (only when animateSize and no snapPoints).',
+  },
+  {
+    name: 'innerWrapperStyle',
+    type: 'React.CSSProperties',
+    default: '—',
+    description:
+      'Styles merged onto the animate-size inner wrapper. Overriding height/overflow may break animation.',
   },
   {
     name: 'contentClassName',

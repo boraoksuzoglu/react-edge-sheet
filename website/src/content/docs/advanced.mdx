@@ -48,6 +48,13 @@ with a `0.25s ease` transition.
 
 ## Custom Styling
 
+The library exposes four style layers (outside → inside):
+
+1. **Overlay** — `containerClassName` / `containerStyle`: full-screen portal root (backdrop + panel). Merged with defaults (`position: fixed`, `inset: 0`, flex alignment, `zIndex`). Overriding `position` / `inset` may break the overlay.
+2. **Panel** — `className` / `style`: the dialog panel (`role="dialog"`).
+3. **Animate-size wrapper** — `innerWrapperClassName` / `innerWrapperStyle`: only when `animateSize` is true and `snapPoints` is not used. Overriding `height`, `width`, or `overflow` may break size animation.
+4. **Content** — `contentClassName` / `contentStyle`: innermost wrapper around children (ResizeObserver target).
+
 ### Style the sheet panel
 
 Use the `style` prop for inline styles on the panel element:

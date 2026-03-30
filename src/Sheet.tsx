@@ -33,6 +33,8 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
     backdropComponent,
     animateSize = true,
     zIndex = 200,
+    containerClassName,
+    containerStyle,
     maxSize,
     maxWidth,
     maxHeight,
@@ -41,6 +43,8 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
     minHeight,
     style,
     className,
+    innerWrapperClassName,
+    innerWrapperStyle,
     contentClassName,
     contentStyle,
     backdropStyle,
@@ -130,7 +134,7 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
   const portalTarget = resolvePortalTarget(portal);
   const alignment = getAlignment(edge, align);
 
-  const containerStyle = useMemo<React.CSSProperties>(
+  const mergedContainerStyle = useMemo<React.CSSProperties>(
     () => ({
       position: 'fixed',
       inset: 0,
@@ -138,8 +142,9 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
       alignItems: alignment.alignItems,
       justifyContent: alignment.justifyContent,
       zIndex,
+      ...containerStyle,
     }),
-    [alignment, zIndex]
+    [alignment, zIndex, containerStyle]
   );
 
   const contextValue = useMemo(
@@ -163,7 +168,7 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
 
   const content = (
     <SheetContext.Provider value={contextValue}>
-      <div style={containerStyle}>
+      <div style={mergedContainerStyle} className={containerClassName}>
         {showBackdrop &&
           (backdropComponent ? (
             backdropComponent(backdropProps)
@@ -191,6 +196,8 @@ export const Sheet = forwardRef<SheetRef, SheetProps>(function Sheet(
           sizeTransition={sizeTransition}
           style={style}
           className={className}
+          innerWrapperClassName={innerWrapperClassName}
+          innerWrapperStyle={innerWrapperStyle}
           contentClassName={contentClassName}
           contentStyle={contentStyle}
           isVisible={isVisible}

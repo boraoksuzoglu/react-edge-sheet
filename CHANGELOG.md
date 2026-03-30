@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [0.5.0] — 2026-03-24
+
+### Added
+
+- `containerClassName` and `containerStyle`: customize the full-screen overlay container (portal root that wraps backdrop and panel).
+- `innerWrapperClassName` and `innerWrapperStyle`: customize the animate-size inner wrapper (only when `animateSize` is true and `snapPoints` is not set).
+
 ## [0.4.0] — 2026-03-17
 
 ### Added
