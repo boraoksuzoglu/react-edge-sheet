@@ -238,6 +238,12 @@ interface SheetProps {
   /** CSS z-index. Default: 200 */
   zIndex?: number;
 
+  /** CSS class for the full-screen overlay (portal root). Not the panel. */
+  containerClassName?: string;
+
+  /** Inline styles merged onto the overlay container */
+  containerStyle?: React.CSSProperties;
+
   /** max-height (vertical sides) or max-width (horizontal sides) */
   maxSize?: string;
 
@@ -276,6 +282,12 @@ interface SheetProps {
 
   /** CSS class for the sheet panel */
   className?: string;
+
+  /** CSS class for the animate-size inner wrapper (when animateSize and no snap points) */
+  innerWrapperClassName?: string;
+
+  /** Inline styles for the animate-size inner wrapper */
+  innerWrapperStyle?: React.CSSProperties;
 
   /** CSS class for the inner content wrapper (the div that wraps children) */
   contentClassName?: string;

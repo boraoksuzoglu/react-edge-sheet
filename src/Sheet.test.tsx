@@ -92,6 +92,19 @@ describe('Sheet', () => {
     expect(onOpenChange).toHaveBeenLastCalledWith(false);
   });
 
+  it('applies containerClassName to overlay root', async () => {
+    const ref = createRef<SheetRef>();
+    render(
+      <Sheet ref={ref} edge="bottom" containerClassName="sheet-overlay-root">
+        <p>Content</p>
+      </Sheet>
+    );
+    await act(async () => {
+      ref.current?.open();
+    });
+    expect(document.body.querySelector('.sheet-overlay-root')).toBeInTheDocument();
+  });
+
   it('does not lock body scroll when scrollLock is false', async () => {
     document.body.style.overflow = '';
     const ref = createRef<SheetRef>();
