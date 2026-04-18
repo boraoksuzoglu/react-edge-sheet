@@ -3,14 +3,11 @@ import { NextRequest, NextResponse } from 'next/server';
 export function middleware(request: NextRequest) {
   const accept = request.headers.get('accept') ?? '';
 
-  // Markdown content negotiation: redirect to /llms.txt for homepage markdown requests
+  // Markdown content negotiation for homepage
   if (request.nextUrl.pathname === '/' && accept.includes('text/markdown')) {
     const url = request.nextUrl.clone();
-    url.pathname = '/llms-full.txt';
-    const response = NextResponse.rewrite(url);
-    response.headers.set('Content-Type', 'text/markdown; charset=utf-8');
-    response.headers.set('Vary', 'Accept');
-    return response;
+    url.pathname = '/_markdown/home';
+    return NextResponse.rewrite(url);
   }
 
   return NextResponse.next();
