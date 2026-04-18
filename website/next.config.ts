@@ -21,6 +21,24 @@ const nextConfig: NextConfig = {
   pageExtensions: ['ts', 'tsx', 'mdx'],
   transpilePackages: ['react-edge-sheet'],
   outputFileTracingRoot: path.join(__dirname, '../'),
+  async headers() {
+    return [
+      {
+        source: '/',
+        headers: [
+          {
+            key: 'Link',
+            value: [
+              '</.well-known/api-catalog>; rel="api-catalog"',
+              '</docs/api>; rel="service-doc"',
+              '</llms.txt>; rel="describedby"; type="text/plain"',
+              '</sitemap.xml>; rel="sitemap"; type="application/xml"',
+            ].join(', '),
+          },
+        ],
+      },
+    ];
+  },
 };
 
 export default withMDX(nextConfig);

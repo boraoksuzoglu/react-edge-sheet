@@ -1,0 +1,64 @@
+# robots.txt for react-sheet.borao.dev
+# RFC 9309 compliant
+
+# Default rules for all crawlers
+User-agent: *
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# GPTBot (OpenAI)
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# OAI-SearchBot (OpenAI search)
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Claude-Web (Anthropic)
+User-agent: Claude-Web
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# anthropic-ai
+User-agent: anthropic-ai
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Google-Extended (Gemini training)
+User-agent: Google-Extended
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Amazonbot
+User-agent: Amazonbot
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Bytespider (ByteDance/TikTok)
+User-agent: Bytespider
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# CCBot (Common Crawl)
+User-agent: CCBot
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+# Applebot-Extended
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /api/
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+
+Sitemap: https://react-sheet.borao.dev/sitemap.xml
